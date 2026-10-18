@@ -1,1 +1,117 @@
+# Gera os APKs do AgZote e do FinZote a cada envio de arquivos
+# (ou manualmente pela aba Actions > "Gerar APK" > "Run workflow").
+# Cada app fica em apps/<nome>: www, capacitor.config.json, ícones e nativo-app.
+name: Gerar APK
 
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [agzote, finzote]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Separar os arquivos do ${{ matrix.app }}
+        run: |
+          rm -rf www icone-android nativo-app capacitor.config.json
+          cp -r apps/${{ matrix.app }}/www www
+          cp -r apps/${{ matrix.app }}/icone-android icone-android
+          cp -r apps/${{ matrix.app }}/nativo-app nativo-app
+          cp apps/${{ matrix.app }}/capacitor.config.json capacitor.config.json
+          cat capacitor.config.json
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Plugin de voz (ditar o recado)
+        run: |
+          npm install @capacitor-community/speech-recognition@^7.0.0 --no-save || echo "Plugin de voz indisponivel, o app usa o microfone do teclado"
+
+      - name: Criar projeto Android
+        run: npx cap add android
+
+      - name: Permissão de alarme exato (avisos na hora certa)
+        run: |
+          sed -i 's#<uses-permission android:name="android.permission.INTERNET" />#<uses-permission android:name="android.permission.INTERNET" />\n    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />#' android/app/src/main/AndroidManifest.xml
+          sed -i 's#<uses-permission android:name="android.permission.INTERNET" />#<uses-permission android:name="android.permission.INTERNET" />\n    <uses-permission android:name="android.permission.RECORD_AUDIO" />#' android/app/src/main/AndroidManifest.xml
+          grep -q "RecognitionService" android/app/src/main/AndroidManifest.xml || sed -i 's#<application#<queries><intent><action android:name="android.speech.RecognitionService" /></intent></queries>\n    <application#' android/app/src/main/AndroidManifest.xml
+          grep -n "permission\|queries" android/app/src/main/AndroidManifest.xml
+
+      - name: Ícone e tela de abertura
+        run: |
+          find android/app/src/main/res -name 'splash.png' -delete
+          cp -r icone-android/. android/app/src/main/res/
+          # barra de status na cor do app (verde phthalo)
+          COR='#0E2A1E'; if [ "${{ matrix.app }}" = "finzote" ]; then COR='#123524'; fi
+          if [ -f android/app/src/main/res/values/colors.xml ]; then sed -i -E "s/#3F51B5|#303F9F/$COR/gI" android/app/src/main/res/values/colors.xml; cat android/app/src/main/res/values/colors.xml; fi
+
+      - name: Atalhos do ícone e widget
+        run: python3 nativo/aplicar.py || echo "::warning::Não consegui preparar atalhos e widget"
+
+      - name: Sincronizar
+        run: npx cap sync android
+
+      - name: Assinatura fixa e número de versão (permite atualizar sem perder dados)
+        run: |
+          mkdir -p ~/.android
+          cp keystore/debug.keystore ~/.android/debug.keystore
+          # assina sempre com a chave do repositório, sem depender da pasta padrão do Android
+          python3 - <<'PY'
+          import re
+          p = 'android/app/build.gradle'
+          s = open(p).read()
+          bloco = '''android {
+              signingConfigs {
+                  debug {
+                      storeFile file("${rootDir}/../keystore/debug.keystore")
+                      storePassword "android"
+                      keyAlias "androiddebugkey"
+                      keyPassword "android"
+                  }
+              }
+          '''
+          s = s.replace('android {', bloco, 1)
+          # cada APK novo ganha um número de versão maior que o anterior
+          s = re.sub(r'versionCode\s+\d+', 'versionCode ${{ github.run_number }} + 1000', s, count=1)
+          s = re.sub(r'versionName\s+"[^"]*"', 'versionName "' + open('apps/${{ matrix.app }}/versao.txt').read().strip() + '"', s, count=1)
+          open(p, 'w').write(s)
+          PY
+          grep -n "versionCode\|versionName\|storeFile" android/app/build.gradle
+
+      - name: Compilar APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          if ! ./gradlew assembleDebug --no-daemon; then
+            echo "::warning::Atalhos e widget não compilaram; gerando o APK sem eles"
+            (cd .. && python3 nativo/desfazer.py)
+            ./gradlew assembleDebug --no-daemon
+          fi
+
+      - name: Renomear e conferir assinatura
+        run: |
+          NOME=$(python3 -c "import json;print(json.load(open('capacitor.config.json'))['appName'])")
+          cp android/app/build/outputs/apk/debug/app-debug.apk $NOME.apk
+          echo "NOME_APK=$NOME" >> $GITHUB_ENV
+          BT=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -1)
+          $BT/apksigner verify --print-certs $NOME.apk | grep -i "SHA-256" || true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.NOME_APK }}-apk
+          path: ${{ env.NOME_APK }}.apk
