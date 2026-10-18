@@ -1,0 +1,489 @@
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-voltar" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-enviar" viewBox="0 0 24 24"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12 2-12 2z" fill="currentColor"/></symbol>
+  <symbol id="i-recados" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 9.5h10M7 13h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-agenda" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor"/></g></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4" stroke-linecap="round"/></g><rect x="6.5" y="13" width="4" height="3.5" rx="1" fill="currentColor"/><rect x="13" y="13" width="4" height="3.5" rx="1" fill="currentColor" opacity=".55"/></symbol>
+  <symbol id="i-notas" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></g></symbol>
+  <symbol id="i-config" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" stroke-linecap="round"/></g></symbol>
+  <symbol id="i-tarefas" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 12l3 3 5-6"/></g></symbol>
+  <symbol id="i-resumo" viewBox="0 0 24 24"><path d="M5 20V11M10 20V5M15 20v-7M20 20V9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-fin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h4"/></g></symbol>
+  <symbol id="i-pessoal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-3-8-6.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 4.5-4 8-8 11z"/></g></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></g></symbol>
+  <symbol id="i-olho" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></g></symbol>
+  <symbol id="i-mais" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-hoje" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v8.5a1.5 1.5 0 0 1-1.5 1.5H15v-6H9v6H5.5A1.5 1.5 0 0 1 4 19.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-escrever" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></g></symbol>
+  <symbol id="i-crono" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V9.5M10 2.5h4M18.5 6l1.5-1.5"/></g></symbol>
+</svg>
+
+<div class="raiz" id="app" data-tela="home">
+
+  <!-- Cronômetro rodando -->
+  <div class="crono-faixa" id="cronoFaixa" hidden role="status"><span class="pt">●</span><span class="ti"><b id="cfxTit"></b><small id="cfxTempo"></small></span><button type="button" id="cfxPausa">Pausar</button><button type="button" id="cfxParar">■ Parar</button></div>
+
+  <!-- Hoje: painel do dia -->
+  <section class="tela" id="telaHome" aria-label="Hoje">
+    <header class="home-top">
+      <svg class="logo" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="23" fill="#000"/><path d="M29 30h40L31 68h22l8-8 12-14" fill="none" stroke="#c6f432" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <h1>AZote<em>.</em></h1>
+      <button type="button" class="engr busca-bt" id="btnBusca" aria-label="Buscar em tudo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button>
+      <button type="button" class="engr" id="btnConfig" aria-label="Configurações"><svg><use href="#i-config"/></svg></button>
+    </header>
+    <div class="corpo hoje" id="hoje"></div>
+    <button type="button" class="fx" id="fxEscrever"><span>Escreva qualquer coisa: recado, gasto, treino…</span><b><svg width="16" height="16"><use href="#i-escrever"/></svg></b></button>
+  </section>
+
+  <!-- Escrever: uma conversa para tudo -->
+  <section class="tela" id="telaEscrever" aria-label="Escrever">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button>
+      <div class="ct"><b>Escrever</b><small>uma conversa para tudo · eu separo onde guardar</small></div></header>
+    <div class="abas rola" role="tablist" id="abasEsc"><button type="button" role="tab" data-fe="" class="on">Tudo</button><button type="button" role="tab" data-fe="agenda">Agenda</button><button type="button" role="tab" data-fe="fin">Finanças</button><button type="button" role="tab" data-fe="pes">Pessoal</button><button type="button" role="tab" data-fe="tarefa">Tarefas</button><button type="button" role="tab" data-fe="nota">Anotações</button></div>
+    <div class="chat" id="chatEsc" aria-live="polite"></div>
+    <div class="sug-barra" id="escSug" hidden></div>
+    <div class="edit-faixa" id="escEdit" hidden></div>
+    <form class="composer" id="formEsc" autocomplete="off">
+      <input id="entradaEsc" type="text" placeholder="Escreva ou fale…" aria-label="Escreva qualquer coisa">
+      <button type="button" class="mic" data-mic="entradaEsc" aria-label="Ditar"><svg width="20" height="20"><use href="#i-mic"/></svg></button>
+      <button type="submit" aria-label="Enviar"><svg width="20" height="20"><use href="#i-enviar"/></svg></button>
+    </form>
+  </section>
+
+  <!-- Recados -->
+  <section class="tela" id="telaRecados" aria-label="Recados">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Recados</b><small>escreva um compromisso como mensagem</small></div></header>
+    <div class="chat" id="chatRecados" aria-live="polite"></div>
+    <form class="composer" id="formRecados" autocomplete="off">
+      <input id="entrada" type="text" placeholder="Ex.: dentista amanhã às 15h" aria-label="Escreva um recado">
+<button type="button" class="mic" data-mic="entrada" aria-label="Ditar"><svg width="20" height="20"><use href="#i-mic"/></svg></button>
+      <button type="submit" aria-label="Enviar"><svg width="20" height="20"><use href="#i-enviar"/></svg></button>
+    </form>
+  </section>
+
+  <!-- Agenda -->
+  <section class="tela" id="telaAgenda" aria-label="Agenda">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Agenda</b><small id="subAgenda">próximos 7 dias</small></div></header>
+    <div class="abas rola" role="tablist"><button type="button" role="tab" id="abaProg" class="on">Programação</button><button type="button" role="tab" id="abaSemana">Semana</button><button type="button" role="tab" id="abaMes">Mês</button><button type="button" role="tab" id="abaContas">Contas</button></div>
+    <div class="dias" id="diasAgenda"></div>
+    <div class="corpo" id="agenda"></div>
+    <div class="corpo" id="contas" hidden></div>
+    <div class="corpo" id="semanaAg" hidden></div>
+  </section>
+
+  <!-- Finanças -->
+  <section class="tela" id="telaFin" aria-label="Finanças">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Finanças</b><small id="subFin"></small></div><button type="button" class="acao busca-fin" id="btnBuscaFin" aria-label="Buscar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button type="button" class="acao olho" id="btnOlho" hidden aria-label="Mostrar valores"><svg width="18" height="18"><use href="#i-olho"/></svg></button></header>
+    <div class="abas rola" role="tablist"><button type="button" role="tab" id="abaSaldos" class="on">Saldos</button><button type="button" role="tab" id="abaGastar">Posso gastar</button><button type="button" role="tab" id="abaExtrato">Extrato</button><button type="button" role="tab" id="abaLanc">Lançamentos</button><button type="button" role="tab" id="abaCartoes">Cartões</button><button type="button" role="tab" id="abaMetas">Metas</button><button type="button" role="tab" id="abaDiv">Dívidas</button></div>
+    <div class="corpo" id="finSaldos"></div>
+    <div class="corpo" id="finGastar" hidden></div>
+    <div class="corpo" id="finExtrato" hidden></div>
+    <div class="corpo" id="finMetas" hidden></div>
+    <div class="corpo" id="finDiv" hidden></div>
+    <div class="corpo" id="finCartoes" hidden></div>
+    <div class="chat" id="chatFin" hidden aria-live="polite"></div>
+    <div class="sug-barra" id="finSug" hidden></div>
+    <div class="edit-faixa" id="finEdit" hidden></div>
+    <form class="composer" id="formFin" autocomplete="off" hidden>
+      <input id="entradaFin" type="text" placeholder="Ex.: mercado 312,45" aria-label="Escreva um lançamento">
+<button type="button" class="mic" data-mic="entradaFin" aria-label="Ditar"><svg width="20" height="20"><use href="#i-mic"/></svg></button>
+      <button type="submit" aria-label="Lançar"><svg width="20" height="20"><use href="#i-enviar"/></svg></button>
+    </form>
+  </section>
+
+  <!-- Calendário -->
+  <section class="tela" id="telaCal" aria-label="Calendário">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Agenda</b><small>mês · horas livres por dia</small></div>
+      <button class="acao" id="calHoje" type="button">Hoje</button></header>
+    <div class="abas rola" role="tablist"><button type="button" role="tab" id="calAbaProg">Programação</button><button type="button" role="tab" id="calAbaSem">Semana</button><button type="button" role="tab" class="on">Mês</button><button type="button" role="tab" id="calAbaContas">Contas</button></div>
+    <div class="cal-nav"><button class="nav" id="calAnt" type="button" aria-label="Mês anterior">‹</button><span id="calMes"></span><button class="nav" id="calProx" type="button" aria-label="Próximo mês">›</button></div>
+    <div class="cal-wrap">
+      <div class="cal-sem"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="legenda">
+        <div class="escala-barra" aria-hidden="true"></div>
+        <div class="escala-rot"><span>livre</span><span style="left:48%">metade</span><span style="right:0">cheio · passa das 22h</span></div>
+        <span><i class="sw tqsw"></i>dia com trabalho</span><span><em class="v gas" style="font-style:normal">−119</em> contas do dia</span>
+        <span class="obs">A cor mostra quanto do dia está ocupado das 7h às 22h, contando o trabalho: quanto menos horas livres, mais forte. Embaixo do número: horas livres.</span>
+      </div>
+      <div class="cal-dia" id="calDia"></div>
+    </div>
+  </section>
+
+  <!-- Tarefas -->
+  <section class="tela" id="telaTarefas" aria-label="Tarefas">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Tarefas</b><small id="subTarefas">coisas para fazer, sem horário marcado</small></div></header>
+    <div class="abas" role="tablist"><button type="button" role="tab" id="abaTar" class="on">Tarefas</button><button type="button" role="tab" id="abaProj">Projetos</button><button type="button" role="tab" id="abaHoras">Horas</button></div>
+    <div class="corpo" id="tarefasLista"></div>
+    <div class="corpo" id="projetosLista" hidden></div>
+    <form class="composer" id="formTarefa" autocomplete="off">
+      <input id="entradaTarefa" type="text" placeholder="Ex.: pagar IPVA até sexta" aria-label="Escreva uma tarefa">
+<button type="button" class="mic" data-mic="entradaTarefa" aria-label="Ditar"><svg width="20" height="20"><use href="#i-mic"/></svg></button>
+      <button type="submit" aria-label="Adicionar tarefa"><svg width="20" height="20"><use href="#i-enviar"/></svg></button>
+    </form>
+  </section>
+
+  <!-- Resumo da semana -->
+  <section class="tela" id="telaResumo" aria-label="Resumo da semana">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Resumo da semana</b><small id="subResumo"></small></div>
+      <span class="semnav"><button type="button" class="acao" id="semAnt" aria-label="Semana anterior">‹</button><button type="button" class="acao" id="semProx" aria-label="Próxima semana">›</button></span></header>
+    <div class="abas rola" role="tablist"><button type="button" role="tab" id="abaTempo" class="on">Tempo</button><button type="button" role="tab" id="abaCrono">Cronômetro</button><button type="button" role="tab" id="abaFin">Finanças</button><button type="button" role="tab" id="abaBem">Bem-estar</button></div>
+    <div class="corpo" id="resumoTempo"></div>
+    <div class="corpo" id="resumoCrono" hidden></div>
+    <div class="corpo" id="resumoBem" hidden></div>
+    <div class="corpo" id="resumoFin" hidden><div class="empty"><b>Finanças chega na versão 1.8.</b><br>Aqui você vai ver as entradas, saídas e o saldo da semana, os gastos por dia e por categoria contra o orçamento, e as contas da próxima semana.</div></div>
+  </section>
+
+  <!-- Anotações -->
+  <section class="tela" id="telaNotas" aria-label="Anotações">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Anotações</b><small id="subNotas">só para você</small></div><button type="button" class="acao" data-busca-notas aria-label="Buscar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button></header>
+    <div class="abas rola" role="tablist" id="notasPastas"></div>
+    <div class="corpo notas-lista" id="notasLista"></div>
+    <div class="nota-barra" id="notaBarra"><button type="button" data-nb="b" aria-label="Negrito"><b>B</b></button><button type="button" data-nb="i" aria-label="Itálico"><i>I</i></button><button type="button" data-nb="ck" aria-label="Caixinha">☑</button><button type="button" data-nb="li" aria-label="Lista">•</button><button type="button" data-nb="h" aria-label="Título">H</button><button type="button" data-nb="fixar" id="nbFixar" aria-label="Fixar no topo">📌</button><button type="button" data-nb="pasta" id="nbPasta" aria-label="Pasta">🏷</button></div>
+    <div class="edit-faixa" id="notaEdit" hidden></div>
+    <form class="composer" id="formNotas" autocomplete="off">
+      <textarea id="entradaNota" rows="1" placeholder="Escreva uma anotação" aria-label="Escreva uma anotação"></textarea>
+      <button type="submit" aria-label="Salvar anotação"><svg width="20" height="20"><use href="#i-enviar"/></svg></button>
+    </form>
+  </section>
+
+  <!-- Configurações -->
+  <section class="tela" id="telaConfig" aria-label="Configurações">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b id="cfgTit">Configurações</b></div></header>
+    <div class="corpo cfg-corpo" id="cfgCorpo"></div>
+  </section>
+
+  <!-- Pessoal -->
+  <section class="tela" id="telaPessoal" aria-label="Pessoal">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Pessoal</b><small id="subPes"></small></div></header>
+    <div class="abas rola" role="tablist"><button type="button" role="tab" id="pa-hoje" class="on">Hoje</button><button type="button" role="tab" id="pa-meudia">Meu dia</button><button type="button" role="tab" id="pa-lancar">Lançar</button><button type="button" role="tab" id="pa-habitos">Hábitos</button><button type="button" role="tab" id="pa-diario">Diário</button><button type="button" role="tab" id="pa-metas">Metas</button><button type="button" role="tab" id="pa-estudos">Estudos</button><button type="button" role="tab" id="pa-leitura">Leitura</button><button type="button" role="tab" id="pa-academia">Academia</button><button type="button" role="tab" id="pa-remedios">Remédios</button></div>
+    <div class="chat" id="chatPes" aria-live="polite"></div>
+    <div class="corpo" id="p-hoje" hidden></div><div class="chat" id="p-meudia" hidden aria-live="polite"></div><div class="corpo" id="p-habitos" hidden></div><div class="corpo" id="p-diario" hidden></div><div class="corpo" id="p-metas" hidden></div><div class="corpo" id="p-estudos" hidden></div>
+    <div class="corpo" id="p-leitura" hidden></div><div class="corpo" id="p-academia" hidden></div><div class="corpo" id="p-remedios" hidden></div>
+    <form class="composer" id="formDia" autocomplete="off" hidden>
+      <textarea id="entradaDia" rows="1" placeholder="Conte como foi o dia…" aria-label="Conte como foi o dia"></textarea>
+      <button type="button" class="mic" data-mic="entradaDia" aria-label="Ditar"><svg width="20" height="20"><use href="#i-mic"/></svg></button>
+      <button type="submit" aria-label="Enviar"><svg width="20" height="20"><use href="#i-enviar"/></svg></button>
+    </form>
+    <form class="composer" id="formPes" autocomplete="off">
+      <input id="entradaPes" type="text" placeholder="Ex.: supino 4x10 40kg · tomei a vitamina d" aria-label="Escreva um lançamento pessoal">
+      <button type="button" class="mic" data-mic="entradaPes" aria-label="Ditar"><svg width="20" height="20"><use href="#i-mic"/></svg></button>
+      <button type="submit" aria-label="Lançar"><svg width="20" height="20"><use href="#i-enviar"/></svg></button>
+    </form>
+  </section>
+
+  <!-- Revisão da noite -->
+  <section class="tela" id="telaRevisao" aria-label="Revisão da noite">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Revisão da noite</b><small>feito, pendente e amanhã</small></div></header>
+    <div class="corpo" id="revisaoCorpo"></div>
+  </section>
+
+  <!-- Planejamento de domingo -->
+  <section class="tela" id="telaPlano" aria-label="Planejamento da semana">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Planejamento da semana</b><small>conversa guiada</small></div></header>
+    <div class="chat" id="planoCorpo"></div>
+  </section>
+
+  <!-- Retrospectiva do mês -->
+  <section class="tela" id="telaRetro" aria-label="Retrospectiva do mês">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
+      <div class="ct"><b>Retrospectiva do mês</b><small id="subRetro"></small></div></header>
+    <div class="corpo" id="retroCorpo"></div>
+  </section>
+
+  <!-- Relatório (1.14) -->
+  <section class="tela" id="telaRelatorio" aria-label="Relatório">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button>
+      <div class="ct"><b id="relTit">Relatório</b><small id="relSub"></small></div></header>
+    <div class="corpo" id="relCorpo"></div>
+  </section>
+
+  <!-- Busca geral -->
+  <section class="tela" id="telaBusca" aria-label="Buscar">
+    <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button>
+      <div class="ct"><b>Buscar</b><small>em tudo do AZote</small></div></header>
+    <div class="busca-campo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="buscaCampo" type="search" placeholder="Finanças, agenda, notas, tarefas…" autocomplete="off" enterkeyhint="search"><button type="button" id="buscaLimpar" aria-label="Limpar" hidden>✕</button></div>
+    <div class="cf-bar busca-filtros" id="buscaFiltros"></div>
+    <div class="corpo" id="buscaRes"></div>
+  </section>
+
+  <!-- Barra de baixo -->
+  <nav class="barra" id="barra" aria-label="Navegação">
+    <button type="button" data-nav="home"><svg><use href="#i-hoje"/></svg><span>Hoje</span></button>
+    <button type="button" data-nav="agenda"><svg><use href="#i-cal"/></svg><span>Agenda</span></button>
+    <button type="button" data-nav="escrever" class="c"><i><svg><use href="#i-escrever"/></svg></i><span>Escrever</span></button>
+    <button type="button" data-nav="fin"><svg><use href="#i-fin"/></svg><span>Finanças</span></button>
+    <button type="button" data-nav="pessoal"><svg><use href="#i-pessoal"/></svg><span>Pessoal</span></button>
+  </nav>
+</div>
+
+<div class="overlay" id="overlay" hidden>
+  <form class="sheet" id="formEdit">
+    <h3 id="edTituloForm">Editar compromisso</h3>
+    <div class="field so-serie"><label for="edTitulo">Descrição</label><input id="edTitulo" required></div>
+    <div class="row2">
+      <div class="field"><label for="edData">Data</label><input id="edData" type="date" required></div>
+      <div class="field"><label for="edHora">Hora</label><input id="edHora" type="time" required></div>
+    </div>
+    <div class="field"><label for="edDuracao">Duração</label>
+      <select id="edDuracao">
+        <option value="15">15 min</option><option value="30">30 min</option><option value="45">45 min</option><option value="60">1 hora</option>
+        <option value="90">1h30</option><option value="120">2 horas</option><option value="180">3 horas</option><option value="240">4 horas</option>
+        <option value="360">6 horas</option><option value="480">8 horas</option><option value="540">9 horas</option><option value="600">10 horas</option><option value="900">Dia todo (7h–22h)</option>
+      </select>
+    </div>
+    <div class="field so-serie"><label for="edRepetir">Repetir</label>
+      <select id="edRepetir">
+        <option value="">Não repete</option><option value="diario">Todo dia</option><option value="semanal">Toda semana (mesmo dia)</option>
+        <option value="uteis">Dias úteis (seg a sex)</option><option value="mensal">Todo mês</option><option value="anual">Todo ano</option>
+      </select>
+    </div>
+    <div class="field so-serie"><label for="edAviso">Notificação</label>
+      <select id="edAviso">
+        <option value="">Sem aviso</option><option value="0">Na hora</option><option value="5">5 min antes</option>
+        <option value="15">15 min antes</option><option value="30">30 min antes</option><option value="60">1 hora antes</option>
+        <option value="120">2 horas antes</option><option value="1440">1 dia antes</option>
+      </select>
+    </div>
+    <div class="field so-serie"><label for="edCategoria">Categoria</label><select id="edCategoria"></select></div>
+    <label class="check so-serie"><input type="checkbox" id="edTrabalho"><span>É trabalho<small>Não conta como compromisso nas horas livres do calendário.</small></span></label>
+    <div class="actions"><button class="btn primary" type="submit">Salvar</button><button class="btn" type="button" id="edCancelar">Cancelar</button></div>
+  </form>
+</div>
+
+<!-- Opções de um compromisso repetido -->
+<div class="overlay baixo" id="folhaOv" hidden>
+  <div class="folha" role="dialog" aria-labelledby="folhaTit">
+    <div class="alca"></div>
+    <b id="folhaTit"></b><small id="folhaSub"></small>
+    <button type="button" class="op" data-f="pular">Pular só este dia</button>
+    <button type="button" class="op" data-f="mudar">Mudar só este dia</button>
+    <button type="button" class="op" data-f="todos">Mudar todos</button>
+    <button type="button" class="op perigo" data-f="excluir">Excluir a série</button>
+  </div>
+</div>
+
+<!-- Escolher data na Agenda -->
+<div class="overlay baixo" id="seletorOv" hidden>
+  <div class="folha seletor" role="dialog" aria-label="Escolher data">
+    <div class="alca"></div>
+    <div class="sel-top"><button type="button" class="nav" id="selAnt" aria-label="Mês anterior">‹</button><b id="selMes"></b><button type="button" class="nav" id="selProx" aria-label="Próximo mês">›</button></div>
+    <div class="sel-sem"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+    <div class="sel-grid" id="selGrid"></div>
+    <div class="actions"><button type="button" class="btn" id="selHoje">Ir para hoje</button></div>
+  </div>
+</div>
+
+<!-- Meta de horas por categoria -->
+<div class="overlay baixo" id="metaOv" hidden>
+  <div class="folha" role="dialog" aria-labelledby="metaTit">
+    <div class="alca"></div>
+    <b id="metaTit">Meta da semana</b><small>Quantas horas por semana você quer dedicar a esta categoria.</small>
+    <div class="stepper"><button type="button" class="nav" id="metaMenos" aria-label="Menos uma hora">−</button><span id="metaValor">0h</span><button type="button" class="nav" id="metaMais" aria-label="Mais uma hora">+</button></div>
+    <div class="actions"><button type="button" class="btn primary" id="metaSalvar">Salvar</button><button type="button" class="btn" id="metaTirar">Sem meta</button></div>
+  </div>
+</div>
+
+<!-- Conta bancária / investimento -->
+<div class="overlay" id="contaOv" hidden>
+  <form class="sheet" id="formConta">
+    <h3 id="ctTitulo">Nova conta</h3>
+    <div class="field"><label for="ctTipo">Tipo</label><select id="ctTipo"><option value="corrente">Conta corrente</option><option value="poupanca">Poupança</option><option value="investimento">Investimento</option><option value="dinheiro">Dinheiro (carteira)</option></select></div>
+    <div class="row2"><div class="field"><label for="ctNome">Nome</label><input id="ctNome" placeholder="Ex.: Conta corrente"></div><div class="field"><label for="ctInst">Instituição</label><input id="ctInst" placeholder="Ex.: banco, corretora"></div></div>
+    <div class="field"><label for="ctSaldo" id="ctSaldoRot">Saldo de hoje</label><input id="ctSaldo" inputmode="decimal" placeholder="0,00"></div>
+    <div class="row2 so-inv"><div class="field"><label for="ctAplic">Aplicação</label><select id="ctAplic"><option>CDB</option><option>Tesouro</option><option>Poupança</option><option>Ações/FII</option><option>Fundo</option><option>Previdência</option><option>Cripto</option><option>Outro</option></select></div><div class="field"><label for="ctRende">Rende</label><input id="ctRende" placeholder="Ex.: 100% do CDI"></div></div>
+    <div class="field so-inv"><label for="ctLiq">Liquidez</label><input id="ctLiq" placeholder="Ex.: diária, D+1, no vencimento"></div>
+    <div class="field"><label for="ctLembrete">Lembrar de conferir o saldo</label><select id="ctLembrete"><option value="semana">Toda segunda</option><option value="mes">Todo dia 1º</option><option value="">Não lembrar</option></select></div>
+    <label class="check" id="ctPadraoBox"><input type="checkbox" id="ctPadrao"><span>Conta padrão<small>Usada nos lançamentos quando você não disser a conta.</small></span></label>
+    <div class="actions"><button class="btn primary" type="submit">Salvar</button><button class="btn" type="button" id="ctCancelar">Cancelar</button><button class="btn danger" type="button" id="ctExcluir">Excluir conta</button></div>
+  </form>
+</div>
+
+<!-- Conferir saldo -->
+<div class="overlay baixo" id="saldoOv" hidden>
+  <div class="folha" role="dialog" aria-labelledby="cfTit">
+    <div class="alca"></div>
+    <b id="cfTit">Conferir saldo</b><small id="cfSub"></small>
+    <div class="field"><input id="cfValor" inputmode="decimal" placeholder="0,00" aria-label="Saldo no banco"></div>
+    <div class="actions"><button type="button" class="btn primary" data-cf="ajustar">Só ajustar</button><button type="button" class="btn" data-cf="lancar">Lançar a diferença</button><button type="button" class="btn" data-cf="cancelar">Cancelar</button></div>
+    <p class="dica">“Só ajustar” corrige o saldo sem mexer nos totais do mês. “Lançar a diferença” registra como gasto ou receita.</p>
+  </div>
+</div>
+
+<!-- Baixa de conta programada -->
+<div class="overlay" id="baixaOv" hidden>
+  <form class="sheet" id="formBaixa">
+    <h3 id="bxTit">Paguei</h3>
+    <div class="row2"><div class="field"><label for="bxValor">Valor</label><input id="bxValor" inputmode="decimal" required></div><div class="field"><label for="bxData">Data</label><input id="bxData" type="date" required></div></div>
+    <div class="field"><label for="bxConta" id="bxContaRot">Saiu de</label><select id="bxConta"></select></div>
+    <div class="actions"><button class="btn primary" type="submit">Dar baixa</button><button class="btn" type="button" id="bxCancelar">Cancelar</button></div>
+  </form>
+</div>
+
+<!-- Conta a pagar / a receber -->
+<div class="overlay" id="agOv" hidden>
+  <form class="sheet" id="formAg">
+    <h3 id="agTit">Nova conta a pagar ou receber</h3>
+    <div class="row2"><div class="field"><label for="agTipo">Tipo</label><select id="agTipo"><option value="pagar">A pagar</option><option value="receber">A receber</option></select></div><div class="field"><label for="agValor">Valor</label><input id="agValor" inputmode="decimal" placeholder="0,00" required></div></div>
+    <div class="field"><label for="agTitulo">Descrição</label><input id="agTitulo" placeholder="Ex.: Internet"></div>
+    <div class="row2"><div class="field"><label for="agData">Vencimento</label><input id="agData" type="date" required></div><div class="field"><label for="agRepetir">Repetir</label><select id="agRepetir"><option value="">Não repete</option><option value="mensal">Todo mês</option><option value="semanal">Toda semana</option><option value="anual">Todo ano</option></select></div></div>
+    <div class="row2"><div class="field"><label for="agCategoria">Categoria</label><select id="agCategoria"></select></div><div class="field"><label for="agConta">Conta</label><select id="agConta"></select></div></div>
+    <div class="actions"><button class="btn primary" type="submit">Salvar</button><button class="btn" type="button" id="agCancelar">Cancelar</button></div>
+  </form>
+</div>
+
+<!-- Meta financeira -->
+<div class="overlay" id="metaFinOv" hidden>
+  <form class="sheet" id="formMetaFin">
+    <h3 id="mfTit">Nova meta</h3>
+    <div class="field"><label for="mfNome">Nome</label><input id="mfNome" placeholder="Ex.: 🏍️ Moto nova"></div>
+    <div class="row2"><div class="field"><label for="mfAlvo">Quanto</label><input id="mfAlvo" inputmode="decimal" placeholder="10.000,00" required></div><div class="field"><label for="mfPrazo">Até quando</label><input id="mfPrazo" type="date" required></div></div>
+    <div class="field"><label for="mfConta">Ligar a um investimento</label><select id="mfConta"></select></div>
+    <div class="field" id="mfJaBox"><label for="mfJa">Já tenho guardado</label><input id="mfJa" inputmode="decimal" placeholder="0,00"></div>
+    <div class="field"><label for="mfLembrete">Lembrete para guardar</label><select id="mfLembrete"><option value="dia">Todo dia (20h)</option><option value="semana">Toda semana (segunda, 9h)</option><option value="mes">Todo mês (dia 1º, 9h)</option><option value="">Não lembrar</option></select></div>
+    <div class="aviso a" id="mfPrevia"></div>
+    <div class="actions"><button class="btn primary" type="submit">Salvar meta</button><button class="btn" type="button" id="mfCancelar">Cancelar</button></div>
+  </form>
+</div>
+
+<!-- Dívida -->
+<div class="overlay" id="divOv" hidden>
+  <form class="sheet" id="formDiv">
+    <h3 id="dvTit">Nova dívida</h3>
+    <div class="row2"><div class="field"><label for="dvTipo">Tipo</label><select id="dvTipo"><option value="emprestimo">Empréstimo</option><option value="financiamento">Financiamento</option><option value="cartao">Cartão / parcelado</option><option value="outro">Outro</option></select></div><div class="field"><label for="dvSistema">Sistema</label><select id="dvSistema"><option value="price">Price (parcela fixa)</option><option value="sac">SAC (parcela cai)</option><option value="sem">Sem juros</option></select></div></div>
+    <div class="row2"><div class="field"><label for="dvNome">Nome</label><input id="dvNome" placeholder="Ex.: Financiamento da moto"></div><div class="field"><label for="dvCredor">Credor</label><input id="dvCredor" placeholder="Ex.: banco, pessoa"></div></div>
+    <div class="row2"><div class="field"><label for="dvValor">Valor emprestado</label><input id="dvValor" inputmode="decimal" placeholder="18.000,00" required></div><div class="field"><label for="dvTaxa">Juros (% ao mês)</label><input id="dvTaxa" inputmode="decimal" placeholder="1,59"></div></div>
+    <div class="row2"><div class="field"><label for="dvN">Nº de parcelas</label><input id="dvN" inputmode="numeric" placeholder="48" required></div><div class="field"><label for="dvParcela">Valor da parcela (opcional)</label><input id="dvParcela" inputmode="decimal" placeholder="calculado"></div></div>
+    <div class="row2"><div class="field"><label for="dvPrimeiro">1º vencimento</label><input id="dvPrimeiro" type="date" required></div><div class="field"><label for="dvJa">Já paguei (parcelas)</label><input id="dvJa" inputmode="numeric" placeholder="0"></div></div>
+    <div class="row2"><div class="field"><label for="dvMulta">Multa por atraso (%)</label><input id="dvMulta" inputmode="decimal"></div><div class="field"><label for="dvMora">Mora (% ao mês)</label><input id="dvMora" inputmode="decimal"></div></div>
+    <div class="row2"><div class="field"><label for="dvDesconto">Desconto pagando adiantado</label><select id="dvDesconto"><option value="juros">Tira os juros</option><option value="fixo">Valor fixo por parcela</option><option value="nao">Não tem</option></select></div><div class="field" id="dvDescFixoBox"><label for="dvDescFixo">Desconto por parcela</label><input id="dvDescFixo" inputmode="decimal" placeholder="0,00"></div></div>
+    <div class="field"><label for="dvConta">Pago pela conta</label><select id="dvConta"></select></div>
+    <label class="check"><input type="checkbox" id="dvSemData"><span>Sem data fixa<small>Para empréstimo entre pessoas: não aparece na Agenda nem avisa.</small></span></label>
+    <div class="aviso a" id="dvPrevia"></div>
+    <div class="actions"><button class="btn primary" type="submit">Salvar dívida</button><button class="btn" type="button" id="dvCancelar">Cancelar</button></div>
+  </form>
+</div>
+
+<!-- Pagar parcela / antecipar -->
+<div class="overlay" id="pagarOv" hidden>
+  <form class="sheet" id="formPagar">
+    <h3 id="pgTit">Pagar parcela</h3>
+    <div class="field" id="pgQuantasBox"><label for="pgQuantas">Quantas parcelas (as últimas)</label><select id="pgQuantas"></select></div>
+    <p class="txt" id="pgInfo"></p>
+    <div class="row2"><div class="field"><label for="pgValor">Valor pago</label><input id="pgValor" inputmode="decimal" required></div><div class="field"><label for="pgData">Data</label><input id="pgData" type="date" required></div></div>
+    <div class="field"><label for="pgConta">Saiu de</label><select id="pgConta"></select></div>
+    <div class="actions"><button class="btn primary" type="submit">Pagar</button><button class="btn" type="button" id="pgCancelar">Cancelar</button></div>
+  </form>
+</div>
+
+<!-- Sessão do cronômetro (ao parar) -->
+<div class="overlay" id="cronoOv" hidden>
+  <form class="sheet" id="formCrono">
+    <h3>Sessão · <span id="csTit"></span></h3>
+    <p class="txt" id="csResumo"></p>
+    <div class="row2"><div class="field"><label for="csIni">Início</label><input id="csIni" type="time" required></div><div class="field"><label for="csFim">Fim</label><input id="csFim" type="time" required></div></div>
+    <div class="row2"><div class="field"><label for="csPausa">Pausas (min)</label><input id="csPausa" type="number" min="0" inputmode="numeric"></div><div class="field"><label for="csNota">Nota</label><input id="csNota" placeholder="opcional"></div></div>
+    <div class="actions"><button class="btn primary" type="submit">Salvar</button><button class="btn danger" type="button" data-cs="descartar">Descartar</button></div>
+  </form>
+</div>
+
+<!-- Cronometrar outra atividade -->
+<div class="overlay" id="outraOv" hidden>
+  <form class="sheet" id="formOutra">
+    <h3>Cronometrar outra atividade</h3>
+    <div class="field"><label for="otTitulo">O que você vai fazer</label><input id="otTitulo" placeholder="Ex.: estudar Python"></div>
+    <div class="field"><label for="otCategoria">Categoria</label><select id="otCategoria"></select></div>
+    <div class="actions"><button class="btn primary" type="submit">▶ Iniciar</button><button class="btn" type="button" id="otCancelar">Cancelar</button></div>
+  </form>
+</div>
+
+<!-- Janela genérica (escolhas e avisos) -->
+<div class="overlay" id="dlgOv" hidden>
+  <div class="dlg" role="dialog" aria-labelledby="dlgTit"><h3 id="dlgTit"></h3><div id="dlgCorpo"></div><div class="dlg-bt" id="dlgBotoes"></div></div>
+</div>
+
+<!-- Formulário genérico -->
+<div class="overlay" id="formOv" hidden>
+  <form class="sheet" id="formGen"><h3 id="gfTit"></h3><div id="gfCampos" class="gf-campos"></div>
+    <div class="actions"><button class="btn primary" type="submit">Salvar</button><button class="btn" type="button" id="gfCancelar">Cancelar</button><button class="btn danger" type="button" id="gfExcluir">Excluir</button></div></form>
+</div>
+
+<!-- Cartão de crédito -->
+<div class="overlay" id="cartaoOv" hidden>
+  <form class="sheet" id="formCartao">
+    <h3 id="crTit">Novo cartão</h3>
+    <div class="row2"><div class="field"><label for="crNome">Nome</label><input id="crNome" placeholder="Ex.: Cartão roxo"></div><div class="field"><label for="crFinal">Final</label><input id="crFinal" inputmode="numeric" placeholder="4821"></div></div>
+    <div class="field"><label for="crLimite">Limite</label><input id="crLimite" inputmode="decimal" placeholder="5.000,00" required></div>
+    <div class="row2"><div class="field"><label for="crFecha">Fecha no dia</label><input id="crFecha" inputmode="numeric" placeholder="3" required></div><div class="field"><label for="crVence">Vence no dia</label><input id="crVence" inputmode="numeric" placeholder="10" required></div></div>
+    <div class="field"><label for="crConta">Pago pela conta</label><select id="crConta"></select></div>
+    <div class="field"><label>Cor</label><div class="cores-sel" id="crCores"></div></div>
+    <div class="field" id="crAtualBox"><label for="crAtual">Fatura atual (se já tem compras)</label><input id="crAtual" inputmode="decimal" placeholder="0,00"></div>
+    <p class="dica">A fatura vira uma conta a pagar em Agenda › Contas, com o valor atualizado a cada compra. Aviso 2 dias antes do vencimento.</p>
+    <div class="actions"><button class="btn primary" type="submit">Salvar cartão</button><button class="btn" type="button" id="crCancelar">Cancelar</button><button class="btn danger" type="button" id="crExcluir">Excluir cartão</button></div>
+  </form>
+</div>
+
+<!-- Pagar fatura -->
+<div class="overlay" id="pagFatOv" hidden>
+  <form class="sheet" id="formPagFat">
+    <h3 id="pfTit">Pagar fatura</h3>
+    <label class="op-rd"><input type="radio" name="pfOp" value="total" checked><span><b>Valor total</b><small>quita a fatura</small></span><b id="pfTotal"></b></label>
+    <label class="op-rd"><input type="radio" name="pfOp" value="minimo"><span><b>Pagamento mínimo</b><small>o resto vai para o rotativo</small></span><b id="pfMinimo"></b></label>
+    <label class="op-rd"><input type="radio" name="pfOp" value="outro"><span><b>Outro valor</b><small>parcial</small></span><input id="pfOutro" inputmode="decimal" placeholder="0,00"></label>
+    <div class="row2"><div class="field"><label for="pfConta">Saiu de</label><select id="pfConta"></select></div><div class="field"><label for="pfData">Data</label><input id="pfData" type="date" required></div></div>
+    <div class="aviso r" id="pfAviso" hidden></div>
+    <div class="actions"><button class="btn primary" type="submit" id="pfPagar">Pagar</button><button class="btn" type="button" id="pfCancelar">Cancelar</button></div>
+  </form>
+</div>
+
+<!-- Agendar tarefa nos horários livres -->
+<div class="overlay baixo" id="agTarOv" hidden>
+  <div class="folha" role="dialog" aria-labelledby="atTit">
+    <div class="alca"></div><b id="atTit">Agendar</b><small id="atSub"></small>
+    <div class="row2"><div class="field"><label for="atDur">Quanto tempo leva</label><select id="atDur"><option value="30">30 min</option><option value="60">1 hora</option><option value="90">1h30</option><option value="120">2 horas</option><option value="180">3 horas</option><option value="240">4 horas</option></select></div>
+      <label class="check" style="align-self:end"><input type="checkbox" id="atDividir"><span>Dividir em 2 dias</span></label></div>
+    <div id="atLista" class="at-lista"></div>
+    <div class="actions"><button type="button" class="btn" id="atCancelar">Cancelar</button></div>
+  </div>
+</div>
+
+<!-- Menu de uma mensagem (segurar o dedo) -->
+<div class="overlay baixo" id="msgOv" hidden>
+  <div class="folha" role="dialog" aria-labelledby="moTit">
+    <div class="alca"></div>
+    <b id="moTit">Mensagem</b><small id="moPrev"></small>
+    <button type="button" class="op" data-mo="editar" hidden>✎ Editar<small>corrige o texto e o app refaz o que ela criou</small></button>
+    <button type="button" class="op" data-mo="copiar">Copiar</button>
+    <button type="button" class="op" data-mo="reenviar">Reenviar (editar e mandar de novo)</button>
+    <button type="button" class="op perigo" data-mo="apagar" hidden>Apagar a mensagem e o que ela criou</button>
+    <button type="button" class="op" data-mo="cancelar">Cancelar</button>
+  </div>
+</div>
+<!-- Editar lançamento (Extrato) -->
+<div class="overlay" id="movOv" hidden>
+  <form class="sheet" id="formMov">
+    <h3 id="mvTit">Editar lançamento</h3>
+    <div class="row2"><div class="field"><label for="mvValor">Valor</label><input id="mvValor" inputmode="decimal" placeholder="0,00"></div><div class="field"><label for="mvData">Data</label><input id="mvData" type="date"></div></div>
+    <div class="row2"><div class="field" id="mvCatBox"><label for="mvCat">Categoria</label><select id="mvCat"></select></div><div class="field"><label for="mvHora">Hora</label><input id="mvHora" type="time"></div></div>
+    <div class="row2"><div class="field" id="mvContaBox"><label for="mvConta" id="mvContaRot">Conta</label><select id="mvConta"></select></div><div class="field" id="mvDestBox"><label for="mvDest">Foi para</label><select id="mvDest"></select></div></div>
+    <div class="field"><label for="mvDesc">Descrição</label><input id="mvDesc" placeholder="Ex.: Mercado"></div>
+    <p class="dica" id="mvDica" hidden></p>
+    <div class="actions"><button class="btn primary" type="submit">Salvar</button><button class="btn" type="button" id="mvDuplicar">Duplicar</button><button class="btn danger" type="button" id="mvExcluir">Excluir</button><button class="btn" type="button" id="mvCancelar">Cancelar</button></div>
+  </form>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+<div class="snack" id="snack" role="status" hidden><span id="snackTxt"></span><button type="button" id="snackBt">Desfazer</button></div>
+
+<input type="file" id="arquivoBackup" accept="application/json,.json" hidden>

@@ -1,0 +1,18 @@
+{
+  "appId": "br.recado.agenda",
+  "appName": "AgZote",
+  "webDir": "www",
+  "android": {
+    "adjustMarginsForEdgeToEdge": "auto",
+    "backgroundColor": "#0E2A1E"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_az",
+      "iconColor": "#9BE3B8"
+    },
+    "Keyboard": {
+      "resizeOnFullScreen": true
+    }
+  }
+}

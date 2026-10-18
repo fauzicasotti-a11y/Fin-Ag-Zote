@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:shortcutId="escrever" android:enabled="true" android:icon="@drawable/az_sc_escrever" android:shortcutShortLabel="@string/az_sc_escrever" android:shortcutLongLabel="@string/az_sc_escrever_longo">
+        <intent android:action="android.intent.action.VIEW" android:data="agzote://escrever" android:targetPackage="br.recado.agenda" android:targetClass="br.recado.agenda.MainActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="tarefa" android:enabled="true" android:icon="@drawable/az_sc_tarefa" android:shortcutShortLabel="@string/az_sc_tarefa" android:shortcutLongLabel="@string/az_sc_tarefa_longo">
+        <intent android:action="android.intent.action.VIEW" android:data="agzote://tarefa" android:targetPackage="br.recado.agenda" android:targetClass="br.recado.agenda.MainActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="crono" android:enabled="true" android:icon="@drawable/az_sc_crono" android:shortcutShortLabel="@string/az_sc_crono" android:shortcutLongLabel="@string/az_sc_crono_longo">
+        <intent android:action="android.intent.action.VIEW" android:data="agzote://crono" android:targetPackage="br.recado.agenda" android:targetClass="br.recado.agenda.MainActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="hoje" android:enabled="true" android:icon="@drawable/az_sc_hoje" android:shortcutShortLabel="@string/az_sc_hoje" android:shortcutLongLabel="@string/az_sc_hoje_longo">
+        <intent android:action="android.intent.action.VIEW" android:data="agzote://hoje" android:targetPackage="br.recado.agenda" android:targetClass="br.recado.agenda.MainActivity" />
+    </shortcut>
+</shortcuts>

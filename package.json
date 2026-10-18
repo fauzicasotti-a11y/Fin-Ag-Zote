@@ -1,0 +1,19 @@
+{
+  "name": "agzote-finzote",
+  "version": "2.0.0",
+  "private": true,
+  "description": "AgZote (agenda) e FinZote (finanças): dois apps do mesmo projeto",
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/app": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/filesystem": "^7.0.0",
+    "@capacitor/keyboard": "^7.0.0",
+    "@capacitor/local-notifications": "^7.0.0",
+    "@capacitor/preferences": "^7.0.0",
+    "@capacitor/share": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.0"
+  }
+}

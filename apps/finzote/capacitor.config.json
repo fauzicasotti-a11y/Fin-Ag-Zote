@@ -1,0 +1,18 @@
+{
+  "appId": "br.recado.finzote",
+  "appName": "FinZote",
+  "webDir": "www",
+  "android": {
+    "adjustMarginsForEdgeToEdge": "auto",
+    "backgroundColor": "#F4F1E8"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_az",
+      "iconColor": "#123524"
+    },
+    "Keyboard": {
+      "resizeOnFullScreen": true
+    }
+  }
+}

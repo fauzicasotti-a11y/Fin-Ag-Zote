@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="az_w_nome">AGZOTE.</string>
+    <string name="az_w_botao_txt">✎ Escrever</string>
+    <string name="az_w_abra">abra o AgZote</string>
+    <string name="az_w_link_raiz">agzote://hoje</string>
+    <string name="az_w_link_botao">agzote://escrever</string>
+    <string name="az_w_link_b3">agzote://tarefas</string>
+    <string name="az_w_desc">Próximo compromisso, horas livres e tarefas</string>
+    <string name="az_sc_escrever">Escrever</string>
+    <string name="az_sc_escrever_longo">Escrever um compromisso ou nota</string>
+    <string name="az_sc_tarefa">Nova tarefa</string>
+    <string name="az_sc_tarefa_longo">Adicionar uma tarefa</string>
+    <string name="az_sc_crono">Cronômetro</string>
+    <string name="az_sc_crono_longo">Iniciar o cronômetro</string>
+    <string name="az_sc_hoje">Hoje</string>
+    <string name="az_sc_hoje_longo">Abrir o dia de hoje</string>
+    <color name="az_w_fundo">#0E2A1E</color>
+    <color name="az_w_borda">#1F4A37</color>
+    <color name="az_w_destaque">#9BE3B8</color>
+    <color name="az_w_pill_txt">#0E2A1E</color>
+    <color name="az_w_texto">#EEF3EC</color>
+    <color name="az_w_mudo">#9DB5A8</color>
+</resources>
