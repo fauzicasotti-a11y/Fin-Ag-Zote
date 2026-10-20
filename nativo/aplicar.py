@@ -13,6 +13,9 @@ open('nativo/.pasta_java', 'w').write(pasta_java)
 os.makedirs(pasta_java, exist_ok=True)
 for f in os.listdir('nativo/java'):
     open(os.path.join(pasta_java, f), 'w', encoding='utf-8').write(open(os.path.join('nativo/java', f), encoding='utf-8').read().replace('__PACOTE__', pacote))
+# sobra da versão 1.x: az_strings.xml repetia textos que agora ficam em nativo-app/res/values/az_app.xml (causava "Duplicate resources")
+for velho in ['nativo/res/values/az_strings.xml', os.path.join(base, 'res/values/az_strings.xml')]:
+    if os.path.exists(velho): os.remove(velho); print('removido arquivo antigo:', velho)
 for origem in ['nativo/res', 'nativo-app/res']:
     shutil.copytree(origem, os.path.join(base, 'res'), dirs_exist_ok=True)
 s = open(man, encoding='utf-8').read()

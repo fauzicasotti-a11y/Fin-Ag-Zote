@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:shortcutId="gasto" android:enabled="true" android:icon="@drawable/az_sc_gasto" android:shortcutShortLabel="@string/az_sc_gasto" android:shortcutLongLabel="@string/az_sc_gasto_longo">
+        <intent android:action="android.intent.action.VIEW" android:data="finzote://gasto" android:targetPackage="br.recado.finzote" android:targetClass="br.recado.finzote.MainActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="receita" android:enabled="true" android:icon="@drawable/az_sc_receita" android:shortcutShortLabel="@string/az_sc_receita" android:shortcutLongLabel="@string/az_sc_receita_longo">
+        <intent android:action="android.intent.action.VIEW" android:data="finzote://receita" android:targetPackage="br.recado.finzote" android:targetClass="br.recado.finzote.MainActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="cartao" android:enabled="true" android:icon="@drawable/az_sc_cartao" android:shortcutShortLabel="@string/az_sc_cartao" android:shortcutLongLabel="@string/az_sc_cartao_longo">
+        <intent android:action="android.intent.action.VIEW" android:data="finzote://cartao" android:targetPackage="br.recado.finzote" android:targetClass="br.recado.finzote.MainActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="extrato" android:enabled="true" android:icon="@drawable/az_sc_extrato" android:shortcutShortLabel="@string/az_sc_extrato" android:shortcutLongLabel="@string/az_sc_extrato_longo">
+        <intent android:action="android.intent.action.VIEW" android:data="finzote://extrato" android:targetPackage="br.recado.finzote" android:targetClass="br.recado.finzote.MainActivity" />
+    </shortcut>
+</shortcuts>

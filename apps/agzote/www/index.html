@@ -874,14 +874,15 @@ button.tlh { width: 100%; border: 0; border-bottom: 1px solid #18402F; backgroun
     <div class="corpo cfg-corpo" id="cfgCorpo"></div>
   </section>
 
+  <div class="overlay" id="trOv" hidden><form class="sheet" id="formTr" autocomplete="off"></form></div>
   <!-- Pessoal -->
   <section class="tela" id="telaPessoal" aria-label="Pessoal">
     <header class="chat-top"><button class="voltar" data-voltar type="button" aria-label="Voltar"><svg><use href="#i-voltar"/></svg></button><span class="az">AZ</span>
       <div class="ct"><b>Pessoal</b><small id="subPes"></small></div></header>
-    <div class="abas rola" role="tablist"><button type="button" role="tab" id="pa-hoje" class="on">Hoje</button><button type="button" role="tab" id="pa-meudia">Meu dia</button><button type="button" role="tab" id="pa-lancar">Lançar</button><button type="button" role="tab" id="pa-habitos">Hábitos</button><button type="button" role="tab" id="pa-diario">Diário</button><button type="button" role="tab" id="pa-metas">Metas</button><button type="button" role="tab" id="pa-estudos">Estudos</button><button type="button" role="tab" id="pa-leitura">Leitura</button><button type="button" role="tab" id="pa-academia">Academia</button><button type="button" role="tab" id="pa-remedios">Remédios</button></div>
+    <div class="abas rola" role="tablist"><button type="button" role="tab" id="pa-hoje" class="on">Hoje</button><button type="button" role="tab" id="pa-treinos">Treinos</button><button type="button" role="tab" id="pa-corpo">Corpo</button><button type="button" role="tab" id="pa-emocoes">Emoções</button><button type="button" role="tab" id="pa-meudia">Meu dia</button><button type="button" role="tab" id="pa-metas">Metas</button><button type="button" role="tab" id="pa-estudos">Estudos</button><button type="button" role="tab" id="pa-leitura">Leitura</button><button type="button" role="tab" id="pa-remedios">Remédios</button><button type="button" role="tab" id="pa-lancar" hidden>Lançar</button><button type="button" role="tab" id="pa-habitos">Hábitos</button><button type="button" role="tab" id="pa-diario" hidden>Diário</button><button type="button" role="tab" id="pa-academia" hidden>Academia</button></div>
     <div class="chat" id="chatPes" aria-live="polite"></div>
     <div class="corpo" id="p-hoje" hidden></div><div class="chat" id="p-meudia" hidden aria-live="polite"></div><div class="corpo" id="p-habitos" hidden></div><div class="corpo" id="p-diario" hidden></div><div class="corpo" id="p-metas" hidden></div><div class="corpo" id="p-estudos" hidden></div>
-    <div class="corpo" id="p-leitura" hidden></div><div class="corpo" id="p-academia" hidden></div><div class="corpo" id="p-remedios" hidden></div>
+    <div class="corpo" id="p-treinos" hidden></div><div class="corpo" id="p-corpo" hidden></div><div class="corpo" id="p-emocoes" hidden></div><div class="corpo" id="p-leitura" hidden></div><div class="corpo" id="p-academia" hidden></div><div class="corpo" id="p-remedios" hidden></div>
     <form class="composer" id="formDia" autocomplete="off" hidden>
       <textarea id="entradaDia" rows="1" placeholder="Conte como foi o dia…" aria-label="Conte como foi o dia"></textarea>
       <button type="button" class="mic" data-mic="entradaDia" aria-label="Ditar"><svg width="20" height="20"><use href="#i-mic"/></svg></button>
@@ -1198,6 +1199,7 @@ button.tlh { width: 100%; border: 0; border-bottom: 1px solid #18402F; backgroun
 <!-- FinZote: menu de cadastro e formulário de lançamento -->
 <div class="overlay baixo" id="cadOv" hidden><div class="folha cad" role="dialog" aria-label="O que vai lançar?"><div class="alca"></div><div class="cad-top"><b>O que vai lançar?</b><button type="button" data-cad-x aria-label="Fechar">✕</button></div><div id="cadCorpo"></div></div></div>
 <div class="overlay" id="lancOv" hidden><form class="sheet lanc" id="formLanc" autocomplete="off"></form></div>
+<div class="overlay" id="barOv" hidden><form class="sheet lanc" id="formBar" autocomplete="off"></form></div>
 <div class="toast" id="toast" role="status" hidden></div>
 <div class="snack" id="snack" role="status" hidden><span id="snackTxt"></span><button type="button" id="snackBt">Desfazer</button></div>
 
@@ -2106,7 +2108,7 @@ const Teclado = Cap?.Plugins?.Keyboard || null;
 const AppNativo = Cap?.Plugins?.App || null;
 const Arquivos = Cap?.Plugins?.Filesystem || null;
 const Compartilhar = Cap?.Plugins?.Share || null;
-const VERSAO = '2.0.0';
+const VERSAO = '2.2.0';
 
 // ===== Utilidades =====
 const $ = id => document.getElementById(id);
@@ -2250,7 +2252,7 @@ function voltar() {
   if (!$('folhaOv').hidden) { $('folhaOv').hidden = true; return true; }
   if (!$('seletorOv').hidden) { $('seletorOv').hidden = true; return true; }
   if (!$('metaOv').hidden) { $('metaOv').hidden = true; return true; }
-  for (const ov of ['lancOv', 'cadOv', 'movOv', 'msgOv', 'dlgOv', 'formOv', 'cartaoOv', 'pagFatOv', 'agTarOv', 'contaOv', 'saldoOv', 'baixaOv', 'agOv', 'metaFinOv', 'divOv', 'pagarOv', 'cronoOv', 'outraOv']) if (!$(ov).hidden) { $(ov).hidden = true; return true; }
+  for (const ov of ['trOv', 'lancOv', 'barOv', 'cadOv', 'movOv', 'msgOv', 'dlgOv', 'formOv', 'cartaoOv', 'pagFatOv', 'agTarOv', 'contaOv', 'saldoOv', 'baixaOv', 'agOv', 'metaFinOv', 'divOv', 'pagarOv', 'cronoOv', 'outraOv']) if (!$(ov).hidden) { $(ov).hidden = true; return true; }
   if (tela === 'fin' && finConta) { finConta = null; renderFin(); return true; }
   if (tela === 'fin' && finAba === 'cartoes' && cartaoSel) { cartaoSel = null; faturaSel = null; renderFin(); return true; }
   if (tela === 'config' && (cfgPag !== 'main' || cfgBusca)) { cfgPag = cfgBusca ? cfgPag : (cfgPilha.pop() || 'main'); cfgBusca = ''; renderConfig(); return true; }
@@ -2832,7 +2834,7 @@ async function aplicarImport(modo) {
     const novos = d.eventos.filter(e => !ids.has(e.id)), novasN = (d.notas || []).filter(n => !idsN.has(n.id));
     eventos = [...eventos, ...novos]; notas = [...notas, ...novasN].sort((a, b) => a.t - b.t);
     const idsT = new Set(tarefas.map(t => t.id)); tarefas = [...tarefas, ...(d.tarefas || []).filter(t => !idsT.has(t.id))];
-    if (d.pessoal) for (const k of ['materias', 'revisoes', 'provas', 'livros', 'leituras', 'treinos', 'corridas', 'medidas', 'remedios', 'doses', 'metas', 'habitos']) { const ids = new Set((pes[k] || []).map(x => x.id)); pes[k] = [...(pes[k] || []), ...(d.pessoal[k] || []).filter(x => !ids.has(x.id))]; }
+    if (d.pessoal) for (const k of ['materias', 'revisoes', 'provas', 'livros', 'leituras', 'treinos', 'corridas', 'medidas', 'remedios', 'doses', 'metas', 'habitos', 'exercicios', 'fichas', 'atividades', 'dores']) { const ids = new Set((pes[k] || []).map(x => x.id)); pes[k] = [...(pes[k] || []), ...(d.pessoal[k] || []).filter(x => !ids.has(x.id))]; }
     if (d.pessoal?.diario) { const chs = new Set(pes.diario.map(x => x.chave)); pes.diario = [...pes.diario, ...d.pessoal.diario.filter(x => !chs.has(x.chave))]; }
     if (d.projetos) { const ids = new Set(projetos.map(x => x.id)); projetos = [...projetos, ...d.projetos.filter(x => !ids.has(x.id))]; }
     if (d.crono) { const ids = new Set(crono.sessoes.map(x => x.id)); crono.sessoes = [...crono.sessoes, ...(d.crono.sessoes || []).filter(x => !ids.has(x.id))]; }
@@ -5003,7 +5005,7 @@ $('p-diario').addEventListener('click', async e => {
   const n = e.target.closest('.notas5 button'); if (n) { const c = n.parentElement.dataset.campo; n.parentElement.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === n)); diarioRasc[c] = +n.dataset.n; return; }
   if (e.target.closest('[data-pd="salvar"]')) { salvarDiario(diarioRasc.energia, diarioRasc.humor, $('diarioNota').value.trim()); diarioRasc = {}; await salvarPes(); renderDiario(); mostrarDialogo('Diário salvo', '<p>Registro de hoje guardado ✓</p>'); }
 });
-function salvarDiario(energia, humor, nota) { const ch = hojeChave(), ant = pes.diario.find(d => d.chave === ch) || {}; pes.diario = pes.diario.filter(d => d.chave !== ch); pes.diario.push({ chave: ch, t: Date.now(), energia: energia ?? ant.energia ?? null, humor: humor ?? ant.humor ?? null, nota: nota ?? ant.nota ?? '' }); }
+function salvarDiario(energia, humor, nota) { const ch = hojeChave(), ant = pes.diario.find(d => d.chave === ch) || {}; pes.diario = pes.diario.filter(d => d.chave !== ch); pes.diario.push({ ...ant, chave: ch, t: Date.now(), energia: energia ?? ant.energia ?? null, humor: humor ?? ant.humor ?? null, nota: nota ?? ant.nota ?? '' }); }
 // Metas pessoais
 function renderMetasPes() {
   let h = '';
@@ -5621,7 +5623,7 @@ function paginasCfg() {
     ] },
     pessoal: { titulo: 'Pessoal', itens: [
       { t: 'esc', k: 'metaLivrosAno', titulo: 'Meta de livros no ano', ops: [4, 6, 8, 10, 12, 15, 20, 24, 30, 52].map(n => [n, n + ' livros']) },
-      { t: 'esc', k: 'treinosSemana', titulo: 'Treinos por semana', ops: [1, 2, 3, 4, 5, 6, 7].map(n => [n, n + (n === 1 ? ' treino' : ' treinos')]) },
+      { t: 'esc', k: 'treinosSemana', titulo: 'Meta de exercício por semana', sub: 'dias com qualquer atividade registrada', ops: [1, 2, 3, 4, 5, 6, 7].map(n => [n, n + (n === 1 ? ' dia' : ' dias')]) },
       { t: 'acao', a: 'ir-pessoal', titulo: 'Abrir Pessoal', sub: 'remédios, hábitos, estudos e leitura têm opções em cada aba' },
     ] },
     crono: { titulo: 'Cronômetro', itens: [
@@ -8301,7 +8303,7 @@ function calcDescobertas(agora = Date.now()) {
     }
   }
   // 3 · humor nos dias de treino × sem treino (60 dias)
-  const diasTreino = new Set([...pes.treinos, ...pes.corridas].map(x => chaveDia(x.t)));
+  const diasTreino = diasAtivosChaves();
   const reg = pes.diario.filter(d => d.humor && new Date(d.chave + 'T12:00').getTime() > agora - 60 * DIA_MS);
   const com = reg.filter(d => diasTreino.has(d.chave)), sem = reg.filter(d => !diasTreino.has(d.chave)), med = l => l.reduce((s, d) => s + d.humor, 0) / l.length;
   if (com.length >= 3 && sem.length >= 3 && med(com) - med(sem) >= 0.5) out.push({ id: 'humor' + tag, k: ['', '😞', '😕', '😐', '🙂', '😄'][Math.round(med(com))] + ' ' + med(com).toFixed(1).replace('.', ','), cor: 'var(--ink)', tit: 'humor nos dias de treino', txt: 'Nos dias sem treino a média é ' + med(sem).toFixed(1).replace('.', ',') + '.', bts: [] });
@@ -8577,6 +8579,546 @@ if (APP === 'ag') dadosWidget = function () {
 
 
 // =====================================================================
+// 2.2 · AgZote › Pessoal: Treinos (exercícios, fichas, treino em andamento, atividade livre,
+// histórico), Corpo (peso, medidas, dores) e Emoções (check-in e padrões). Tudo por toque, sem chat.
+// Qualquer atividade registrada conta como dia de exercício (meta semanal configurável).
+// =====================================================================
+const NIVEIS = ['', 'Muito leve', 'Leve', 'Moderada', 'Forte', 'Máxima'];
+const COR_NIVEL = ['', '#2c5a47', '#8FD3A0', '#E8D26B', '#EE8B4F', '#E0463C'];
+const GRUPOS = ['Peito', 'Costas', 'Pernas', 'Ombros', 'Braços', 'Core', 'Corpo todo'];
+const TIPOS_EX = [['forca', 'Força'], ['cardio', 'Cardio'], ['mobilidade', 'Mobilidade'], ['esporte', 'Esporte']];
+const MEDIDAS_EX = [['carga', 'Carga × repetições'], ['tempo', 'Tempo'], ['dist', 'Distância + tempo']];
+const CAMPOS_SET = { carga: [['carga', 'kg'], ['reps', 'reps']], tempo: [['tempo', 'seg']], dist: [['dist', 'km'], ['tempo', 'min']] };
+const ROTULO_MEDIDA = { peso: 'Peso', cintura: 'Cintura', peito: 'Peito', braco: 'Braço', coxa: 'Coxa', quadril: 'Quadril', gordura: '% de gordura' };
+const UNID_MEDIDA = { peso: 'kg', gordura: '%' };
+const MOTIVOS = ['Trabalho', 'Treino', 'Sono ruim', 'Família', 'Dinheiro', 'Saúde', 'Amigos', 'Estudos'];
+const DORES_LOCAIS = ['Ombro direito', 'Ombro esquerdo', 'Lombar', 'Joelho', 'Pescoço', 'Punho', 'Tornozelo', 'Quadril'];
+const EXEMPLOS_EX = [['Supino reto', 'forca', 'Peito', 'carga', 4, 10, 60], ['Agachamento livre', 'forca', 'Pernas', 'carga', 4, 8, 90], ['Remada curvada', 'forca', 'Costas', 'carga', 4, 10, 60], ['Desenvolvimento', 'forca', 'Ombros', 'carga', 3, 10, 60],
+  ['Rosca direta', 'forca', 'Braços', 'carga', 3, 12, 45], ['Prancha', 'forca', 'Core', 'tempo', 3, 40, 45], ['Corrida', 'cardio', 'Corpo todo', 'dist', 1, 0, 0], ['Caminhada', 'cardio', 'Corpo todo', 'dist', 1, 0, 0], ['Alongamento', 'mobilidade', 'Corpo todo', 'tempo', 1, 30, 0], ['Yoga', 'mobilidade', 'Corpo todo', 'tempo', 1, 600, 0]];
+const brNum = v => String(v).replace('.', ',');
+const lerNum = v => { const n = parseFloat(String(v ?? '').replace(',', '.')); return isNaN(n) ? 0 : n; };
+
+function garantirTreino() {
+  for (const k of ['exercicios', 'fichas', 'atividades', 'dores']) if (!Array.isArray(pes[k])) pes[k] = [];
+  for (const m of pes.medidas) if (!m.id) m.id = novoId();
+}
+// ----- todas as atividades (novas e as antigas escritas pelo chat) numa lista só -----
+function listaAtiv() {
+  garantirTreino(); const out = [];
+  for (const a of pes.atividades) out.push({ id: a.id, src: 'atv', t: a.t, nome: a.nome, min: a.min || 0, int: a.int || 0, conta: a.conta !== false, ficha: a.tipo === 'ficha', ref: a });
+  for (const t of pes.treinos) out.push({ id: t.id, src: 'tre', t: t.t, nome: t.exercicios?.length ? 'Treino: ' + t.exercicios.slice(0, 3).map(e => maiuscula(e.nome)).join(', ') : 'Treino', min: 0, int: 0, conta: true, ficha: true, ref: t });
+  for (const c of pes.corridas) out.push({ id: c.id, src: 'cor', t: c.t, nome: maiuscula(c.tipo || 'corrida') + ' ' + brNum(c.km || 0) + ' km', min: Math.round(c.min || 0), int: 0, conta: true, ficha: false, ref: c });
+  return out.sort((a, b) => b.t - a.t);
+}
+const diasAtivosChaves = () => new Set(listaAtiv().filter(x => x.conta).map(x => chaveDia(x.t)));
+function treinosEntre(de, ate) { const s = new Set(); for (const x of listaAtiv()) if (x.conta && x.t >= de && x.t <= ate) s.add(chaveDia(x.t)); return s.size; }
+// ----- histórico de cargas -----
+function sessoesExercicio(nome) {
+  const k = finTxt(nome), r = [];
+  for (const a of pes.atividades) if (a.tipo === 'ficha') for (const e of a.exs || []) if (finTxt(e.nome) === k) r.push({ t: a.t, sets: e.sets || [], medida: e.medida || 'carga', id: a.id });
+  for (const t of pes.treinos) for (const e of t.exercicios || []) if (finTxt(e.nome) === k) r.push({ t: t.t, medida: 'carga', id: t.id, sets: Array.from({ length: e.series || 1 }, () => ({ carga: e.carga || 0, reps: e.reps || 0 })) });
+  return r.sort((a, b) => b.t - a.t);
+}
+const ultimoDe = nome => sessoesExercicio(nome)[0]?.sets || [];
+const melhorCarga = (nome, ignorarId) => Math.max(0, ...sessoesExercicio(nome).filter(s => s.id !== ignorarId).flatMap(s => s.sets.map(x => lerNum(x.carga))));
+function resumoUltimo(ex) {
+  const s = ultimoDe(ex.nome); if (!s.length) return '';
+  if (ex.medida === 'carga') { const c = Math.max(...s.map(x => lerNum(x.carga))); return c ? brNum(c) + ' kg' : ''; }
+  if (ex.medida === 'dist') return brNum(lerNum(s[0].dist)) + ' km';
+  return brNum(lerNum(s[0].tempo)) + ' s';
+}
+const exPorId = id => pes.exercicios.find(e => e.id === id);
+
+// ----- estado da tela -----
+let trAba = 'ex', exBusca = '', exTipo = '', hMes = null, hDia = null, corpoPer = 90, emMes = null, emDiaSel = null, tr = null, tickTr = null, timerSalvaTr = null;
+const salvarPesDepois = () => { clearTimeout(timerSalvaTr); timerSalvaTr = setTimeout(() => salvarPes(), 700); };
+const fmtMin = m => m >= 60 ? Math.floor(m / 60) + ' h' + (m % 60 ? ' ' + pad(m % 60) + ' min' : '') : m + ' min';
+const iconeAtiv = n => { const s = finTxt(n); for (const [re, ic] of [[/alongament|mobilidade/, '🧘'], [/yoga|pilates|medita/, '🧘'], [/caminhad/, '🚶'], [/corrida|corri|correr/, '🏃'], [/bike|bicicleta|ciclismo|pedal/, '🚴'], [/futebol|bola|basquete|volei|tenis/, '⚽'], [/natacao|nado|piscina/, '🏊'], [/danca|zumba/, '💃'], [/treino|supino|agacha|musculacao|academia|peso/, '🏋️']]) if (re.test(s)) return ic; return '💪'; };
+const faceHTML = (campo, atual) => '<div class="tz-faces">' + [1, 2, 3, 4, 5].map(n => '<button type="button" data-t="set" data-c="' + campo + '" data-v="' + n + '" class="' + (atual === n ? 'on' : '') + '">' + HUMOR[n] + '</button>').join('') + '</div>';
+const chipsTr = (campo, ops, atual, multi) => '<div class="tz-chips">' + ops.map(([v, n]) => { const on = multi ? (atual || []).includes(v) : String(atual) === String(v); return '<button type="button" class="chip' + (on ? ' on' : '') + '" data-t="' + (multi ? 'multi' : 'set') + '" data-c="' + campo + '" data-v="' + esc(v) + '">' + esc(n) + '</button>'; }).join('') + '</div>';
+const intHTML = (campo, atual) => '<div class="tz-int">' + [1, 2, 3, 4, 5].map(n => '<button type="button" data-t="set" data-c="' + campo + '" data-v="' + n + '" class="' + (atual === n ? 'on' : '') + '" style="' + (atual === n ? 'background:' + COR_NIVEL[n] + ';color:#0B2219' : '') + '">' + NIVEIS[n] + '</button>').join('') + '</div>';
+const campoTr = (rot, id, v, ph, extra = '') => '<div class="field"><label>' + rot + '</label><input data-f="' + id + '" type="text" value="' + esc(v ?? '') + '" placeholder="' + esc(ph || '') + '" autocomplete="off" ' + extra + '></div>';
+
+// =========================== HOJE ===========================
+function itensDeHoje() { const ch = hojeChave(); return listaAtiv().filter(x => chaveDia(x.t) === ch).sort((a, b) => a.t - b.t); }
+function planejadosHoje() {
+  const dw = new Date().getDay(), ch = hojeChave(), feitas = new Set(pes.atividades.filter(a => chaveDia(a.t) === ch && a.fichaId).map(a => a.fichaId));
+  return pes.fichas.filter(f => (f.dias || []).includes(dw) && !feitas.has(f.id));
+}
+function cartaoHojeHTML() {
+  garantirTreino();
+  const feitos = itensDeHoje(), plan = planejadosHoje(), ses = pes.sessao, meta = config.treinosSemana || 3, agora = Date.now(), ini = inicioSemana(agora), n = treinosEntre(ini, fimSemanaT(agora)), ativo = feitos.some(x => x.conta);
+  let h = '<div class="tz-top"><div class="rot" style="margin:0">Exercícios de hoje</div>' + (ativo ? '<em class="tz-tag">✓ dia ativo</em>' : '') + '</div>';
+  if (ses) h += '<div class="tz-ev"><span class="ic">▶</span><div><b>' + esc(ses.nome) + '</b> <em class="tz-tag">em andamento</em><br><small>' + ses.exs.length + ' exercícios · começou às ' + fmtHora(new Date(ses.ini)) + '</small></div><button type="button" class="btn primary mini-b" data-tz="continuar">Continuar</button></div>';
+  for (const x of feitos) h += '<button type="button" class="tz-ev" data-tz="item" data-id="' + esc(x.id) + '" data-s="' + x.src + '"><span class="ic">' + iconeAtiv(x.nome) + '</span><div><b>' + esc(x.nome) + '</b><br><small>' + [x.min ? fmtMin(x.min) : '', x.int ? 'intensidade ' + NIVEIS[x.int].toLowerCase() : '', x.conta ? '' : 'não conta como dia ativo'].filter(Boolean).join(' · ') + '</small></div><span class="ok">✓</span></button>';
+  for (const f of plan) h += '<div class="tz-ev"><span class="ic">📋</span><div><b>' + esc(f.nome) + '</b> <em class="tz-tag">planejado</em><br><small>' + f.itens.length + ' exercícios · ficha de hoje</small></div><button type="button" class="btn mini-b" data-tz="iniciar" data-id="' + esc(f.id) + '">▶ Iniciar</button></div>';
+  if (!feitos.length && !plan.length && !ses) h += '<p class="dica" style="margin:8px 0">Nada registrado hoje. Qualquer atividade conta, até um alongamento.</p>';
+  h += '<div class="actions" style="margin-top:10px">' + (pes.fichas.length && !ses ? '<button type="button" class="btn primary" data-tz="iniciar-menu">▶ Iniciar treino</button>' : '') + '<button type="button" class="btn' + (pes.fichas.length && !ses ? '' : ' primary') + '" data-tz="livre">+ Atividade livre</button></div>';
+  h += '<div class="tz-sem" data-tz="meta"><div class="rot" style="margin:10px 0 6px">Semana · ' + n + ' de ' + meta + ' dias ativos <span class="tz-lnk">mudar meta</span></div><div class="sem7 grande">' + [0, 1, 2, 3, 4, 5, 6].map(k => { const t = maisDias(ini, k), f = treinosEntre(t, t + 86400000 - 1) > 0; return '<span class="' + (f ? 'f' : '') + (chaveDia(t) === hojeChave() ? ' hj' : '') + '">' + DIAS_CURTO[new Date(t).getDay()] + '</span>'; }).join('') + '</div><div class="prog" style="margin-top:8px"><div style="width:' + Math.min(100, n / Math.max(meta, 1) * 100) + '%;background:var(--accent)"></div></div>' + (n >= meta ? '<small class="mut" style="font-size:.74rem">✓ meta da semana batida · ' + semanasSeguidas() + ' semanas seguidas 🔥</small>' : '<small class="mut" style="font-size:.74rem">faltam ' + (meta - n) + (meta - n === 1 ? ' dia' : ' dias') + ' · ' + semanasSeguidas() + ' semanas seguidas 🔥</small>') + '</div>';
+  return h;
+}
+const renderPesHojeBase = renderPesHoje;
+renderPesHoje = function () {
+  renderPesHojeBase(); const box = $('p-hoje');
+  [...box.querySelectorAll('.card')].forEach(c => { if (c.textContent.includes('🏋️ Academia')) c.remove(); });
+  box.querySelectorAll('[data-hh="lancar"]').forEach(b => b.closest('.actions')?.remove());
+  box.querySelectorAll('.kp small').forEach(s => { if (/treinos na semana/.test(s.textContent)) s.textContent = 'dias ativos na semana'; });
+  const emp = box.querySelector('.empty'); if (emp) emp.innerHTML = '<b>Seu dia pessoal aparece aqui.</b><br>Cadastre exercícios em Treinos, registre uma atividade livre ou faça o check-in de humor. Remédios, estudos e leitura ficam nas outras abas.';
+  const c = document.createElement('div'); c.className = 'card tz-hoje'; c.innerHTML = cartaoHojeHTML(); const kp = box.querySelector('.kp'); if (kp) kp.after(c); else box.prepend(c);
+  const ck = [...box.querySelectorAll('.card')].find(x => x.textContent.includes('Como você está hoje?')); if (ck) ck.insertAdjacentHTML('beforeend', '<div class="actions"><button type="button" class="btn" data-tz="checkin">Check-in completo ›</button></div>');
+};
+$('p-hoje').addEventListener('click', async e => {
+  const b = e.target.closest('[data-tz]'); if (!b) return; const a = b.dataset.tz;
+  if (a === 'livre') abrirLivre();
+  if (a === 'checkin') { pesAba = 'emocoes'; renderPessoal(); abrirCheckin(); }
+  if (a === 'meta') pedirMetaSemanal();
+  if (a === 'iniciar') iniciarFicha(b.dataset.id);
+  if (a === 'iniciar-menu') menuIniciar();
+  if (a === 'continuar') abrirTreinoSessao();
+  if (a === 'item') abrirItem(b.dataset.id, b.dataset.s);
+});
+function pedirMetaSemanal() {
+  abrirForm('Meta semanal de exercício', [{ k: 'n', rot: 'Dias com atividade por semana', tipo: 'select', ops: [1, 2, 3, 4, 5, 6, 7].map(n => [n, n + (n === 1 ? ' dia' : ' dias')]), v: config.treinosSemana || 3 }],
+    async d => { config.treinosSemana = +d.n; await guardar('az-config', config); renderPessoal(); toast('Meta: ' + d.n + (+d.n === 1 ? ' dia' : ' dias') + ' por semana'); });
+}
+function menuIniciar() {
+  const dw = new Date().getDay(), ops = pes.fichas.slice().sort((a, b) => ((b.dias || []).includes(dw) ? 1 : 0) - ((a.dias || []).includes(dw) ? 1 : 0)).map(f => [f.id, f.nome + ((f.dias || []).includes(dw) ? ' · hoje' : '')]);
+  ops.push(['__livre', 'Treino sem ficha']); escolherOpcao('Qual treino?', ops, null, id => iniciarFicha(id === '__livre' ? null : id));
+}
+
+// =========================== TREINOS ===========================
+function renderTreinos() {
+  garantirTreino(); const box = $('p-treinos');
+  let h = '<div class="tz-sub">' + [['ex', 'Exercícios'], ['fichas', 'Fichas'], ['hist', 'Histórico']].map(([k, n]) => '<button type="button" class="chip' + (trAba === k ? ' on' : '') + '" data-tz="aba" data-v="' + k + '">' + n + '</button>').join('') + '</div>';
+  if (trAba === 'ex') h += htmlExercicios(); else if (trAba === 'fichas') h += htmlFichas(); else h += htmlHistorico();
+  box.innerHTML = h;
+}
+function htmlExercicios() {
+  const lista = pes.exercicios.filter(e => (!exTipo || e.tipo === exTipo) && (!exBusca || finTxt(e.nome).includes(finTxt(exBusca))) || false).sort((a, b) => a.nome.localeCompare(b.nome));
+  let h = '<div class="actions" style="margin:0 0 8px"><button type="button" class="btn primary" data-tz="ex-novo">+ Novo exercício</button><button type="button" class="btn" data-tz="livre">+ Atividade livre</button></div>';
+  if (!pes.exercicios.length) return h + '<div class="empty"><b>Sua biblioteca está vazia.</b><br>Cadastre os exercícios que você faz, ou comece com uma lista pronta (dá para editar depois). Se fez algo que não está aqui, use <b>Atividade livre</b>.<div class="actions"><button type="button" class="btn" data-tz="ex-exemplos">Adicionar exemplos</button></div></div>';
+  h += '<div class="field"><input id="exBusca" type="text" value="' + esc(exBusca) + '" placeholder="🔍 Buscar exercício" autocomplete="off"></div><div class="tz-chips"><button type="button" class="chip' + (!exTipo ? ' on' : '') + '" data-tz="ex-tipo" data-v="">Todos</button>' + TIPOS_EX.map(([k, n]) => '<button type="button" class="chip' + (exTipo === k ? ' on' : '') + '" data-tz="ex-tipo" data-v="' + k + '">' + n + '</button>').join('') + '</div><div id="exLista">' + htmlListaEx(lista) + '</div>';
+  return h;
+}
+function htmlListaEx(lista) {
+  if (!lista.length) return '<p class="dica">Nenhum exercício com esse filtro.</p>';
+  return '<div class="card" style="padding:4px 12px">' + lista.map(e => '<button type="button" class="tz-row" data-tz="ex-edit" data-id="' + esc(e.id) + '"><span><b>' + esc(e.nome) + '</b><small>' + esc([e.grupo, (TIPOS_EX.find(t => t[0] === e.tipo) || [])[1], padraoEx(e)].filter(Boolean).join(' · ')) + '</small></span><span class="mut">' + (resumoUltimo(e) ? 'último<br>' + resumoUltimo(e) : '') + '</span></button>').join('') + '</div>';
+}
+const padraoEx = e => e.medida === 'carga' ? (e.series || 3) + '×' + (e.reps || 10) : e.medida === 'tempo' ? (e.desc ? e.desc + ' s' : 'tempo') : 'distância e tempo';
+$('p-treinos').addEventListener('input', e => { if (e.target.id !== 'exBusca') return; exBusca = e.target.value; const l = pes.exercicios.filter(x => (!exTipo || x.tipo === exTipo) && (!exBusca || finTxt(x.nome).includes(finTxt(exBusca)))).sort((a, b) => a.nome.localeCompare(b.nome)); $('exLista').innerHTML = htmlListaEx(l); });
+function htmlFichas() {
+  let h = '<div class="actions" style="margin:0 0 8px"><button type="button" class="btn primary" data-tz="ficha-nova">+ Nova ficha</button><button type="button" class="btn" data-tz="iniciar-livre">▶ Treino sem ficha</button></div>';
+  if (!pes.fichas.length) return h + '<div class="empty"><b>Nenhuma ficha ainda.</b><br>Uma ficha é um treino montado com exercícios da biblioteca (por exemplo, Treino A · Peito e tríceps), com os dias da semana em que você faz.</div>';
+  h += pes.fichas.map(f => '<div class="card"><div class="tp"><b>' + esc(f.nome) + '</b></div><small class="mut">' + ((f.dias || []).length ? (f.dias || []).slice().sort().map(d => DIAS_CURTO[d]).join(', ') : 'sem dia fixo') + ' · ' + f.itens.length + ' exercícios</small><div class="tz-itens">' + f.itens.map(i => { const e = exPorId(i.exId); return e ? '<span>' + esc(e.nome) + ' <i>' + (e.medida === 'carga' ? i.series + '×' + i.reps : e.medida === 'tempo' ? (i.desc || e.desc || '') + ' s' : '') + '</i></span>' : ''; }).join('') + '</div><div class="actions"><button type="button" class="btn primary" data-tz="iniciar" data-id="' + esc(f.id) + '">▶ Iniciar</button><button type="button" class="btn" data-tz="ficha-edit" data-id="' + esc(f.id) + '">Editar</button></div></div>').join('');
+  return h;
+}
+function htmlHistorico() {
+  const agora = new Date(), dm = new Date(hMes || new Date(agora.getFullYear(), agora.getMonth(), 1).getTime()), mesIni = new Date(dm.getFullYear(), dm.getMonth(), 1).getTime(), nDias = new Date(dm.getFullYear(), dm.getMonth() + 1, 0).getDate();
+  hMes = mesIni; const todas = listaAtiv(), noMes = todas.filter(x => x.t >= mesIni && x.t < new Date(dm.getFullYear(), dm.getMonth() + 1, 1).getTime());
+  const porDia = {}; for (const x of noMes) { const d = new Date(x.t).getDate(); (porDia[d] = porDia[d] || []).push(x); }
+  const diasAt = Object.keys(porDia).filter(d => porDia[d].some(x => x.conta)).length, ehAtual = mesIni === new Date(agora.getFullYear(), agora.getMonth(), 1).getTime();
+  if (hDia && (hDia < 1 || hDia > nDias)) hDia = null; if (!hDia && ehAtual) hDia = agora.getDate();
+  let h = '<div class="tz-nav"><button type="button" class="nav" data-tz="h-mes" data-v="-1" aria-label="Mês anterior">‹</button><b>' + maiuscula(MESES_LONGO[dm.getMonth()]) + (dm.getFullYear() !== agora.getFullYear() ? ' de ' + dm.getFullYear() : '') + ' · ' + diasAt + (diasAt === 1 ? ' dia ativo' : ' dias ativos') + '</b><button type="button" class="nav" data-tz="h-mes" data-v="1"' + (ehAtual ? ' disabled' : '') + ' aria-label="Próximo mês">›</button></div>';
+  h += '<div class="tz-cal">' + ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'].map(d => '<div class="h">' + d + '</div>').join('') + '<i></i>'.repeat((new Date(mesIni).getDay() + 6) % 7);
+  for (let d = 1; d <= nDias; d++) { const l = (porDia[d] || []).filter(x => x.conta), f = l.some(x => x.ficha), v = l.some(x => !x.ficha), cls = !l.length ? '' : f && v ? 'dois' : f ? 'ficha' : 'livre'; h += '<button type="button" data-tz="h-dia" data-d="' + d + '" class="' + cls + (d === hDia ? ' sel' : '') + '">' + d + '</button>'; }
+  h += '</div><div class="tz-leg"><span><i class="ficha"></i> ficha</span><span><i class="livre"></i> atividade livre</span><span><i class="dois"></i> as duas</span></div>';
+  if (hDia) { const l = (porDia[hDia] || []).sort((a, b) => a.t - b.t), t0 = new Date(dm.getFullYear(), dm.getMonth(), hDia);
+    h += '<div class="card"><div class="rot" style="margin:0 0 4px">' + maiuscula(DIAS[t0.getDay()]) + ', ' + hDia + ' · ' + (l.length ? l.length + (l.length === 1 ? ' atividade' : ' atividades') : 'nada registrado') + '</div>' + l.map(x => itemHTML(x)).join('') + '<div class="actions"><button type="button" class="btn" data-tz="livre" data-d="' + dataInput(t0.getTime()) + '">+ Registrar neste dia</button></div></div>'; }
+  // semanas recentes
+  const sems = []; for (let k = 0; k < 4; k++) { const ini = maisDias(inicioSemana(Date.now()), -7 * k), fim = maisDias(ini, 7) - 1, l = todas.filter(x => x.t >= ini && x.t <= fim); if (l.length) sems.push({ ini, l }); }
+  for (const s of sems) { const dias = new Set(s.l.filter(x => x.conta).map(x => chaveDia(x.t))).size, min = s.l.reduce((a, x) => a + (x.min || 0), 0);
+    h += '<div class="card"><div class="rot" style="margin:0 0 4px">' + (s.ini === inicioSemana(Date.now()) ? 'Esta semana' : 'Semana de ' + fmtDM(s.ini)) + ' · ' + dias + ' ' + (dias === 1 ? 'dia ativo' : 'dias ativos') + (min ? ' · ' + fmtMin(min) : '') + '</div>' + s.l.slice(0, 6).map(x => itemHTML(x, true)).join('') + (s.l.length > 6 ? '<small class="mut">+ ' + (s.l.length - 6) + ' atividades</small>' : '') + '</div>'; }
+  const niv = [0, 0, 0, 0, 0, 0]; for (const x of noMes) if (x.int) niv[x.int]++;
+  if (niv.some(Boolean)) h += '<div class="card"><div class="rot" style="margin:0 0 6px">Intensidade no mês</div><div class="tz-nivs">' + [1, 2, 3, 4, 5].filter(n => niv[n]).map(n => '<span style="background:' + COR_NIVEL[n] + '">' + niv[n] + ' ' + NIVEIS[n].toLowerCase() + (niv[n] === 1 ? '' : 's') + '</span>').join('') + '</div></div>';
+  if (!todas.length) h += '<div class="empty"><b>Nada registrado ainda.</b><br>Faça um treino pela ficha ou registre uma atividade livre. Todo registro conta como dia de exercício.</div>';
+  return h;
+}
+function itemHTML(x, comData) { return '<button type="button" class="tz-ev" data-tz="item" data-id="' + esc(x.id) + '" data-s="' + x.src + '"><span class="ic">' + iconeAtiv(x.nome) + '</span><div><b>' + esc(x.nome) + '</b>' + (x.ficha ? '' : ' <em class="tz-tag">livre</em>') + '<br><small>' + [comData ? DIAS_CURTO[new Date(x.t).getDay()] + ' ' + new Date(x.t).getDate() : fmtHora(new Date(x.t)), x.min ? fmtMin(x.min) : '', x.int ? NIVEIS[x.int].toLowerCase() : '', x.conta ? '' : 'não conta'].filter(Boolean).join(' · ') + '</small></div></button>'; }
+$('p-treinos').addEventListener('click', e => {
+  const b = e.target.closest('[data-tz]'); if (!b) return; const a = b.dataset.tz;
+  if (a === 'aba') { trAba = b.dataset.v; renderTreinos(); }
+  if (a === 'ex-novo') abrirEx(null);
+  if (a === 'ex-edit') abrirEx(b.dataset.id);
+  if (a === 'ex-tipo') { exTipo = b.dataset.v; renderTreinos(); }
+  if (a === 'ex-exemplos') { garantirTreino(); for (const [nome, tipo, grupo, medida, series, reps, desc] of EXEMPLOS_EX) if (!pes.exercicios.some(x => finTxt(x.nome) === finTxt(nome))) pes.exercicios.push({ id: novoId(), nome, tipo, grupo, medida, series, reps: medida === 'carga' ? reps : 0, desc: medida === 'carga' ? 0 : reps, descanso: desc }); salvarPes(); renderTreinos(); toast('Exercícios adicionados'); }
+  if (a === 'livre') abrirLivre(null, b.dataset.d);
+  if (a === 'ficha-nova') abrirFicha(null);
+  if (a === 'ficha-edit') abrirFicha(b.dataset.id);
+  if (a === 'iniciar') iniciarFicha(b.dataset.id);
+  if (a === 'iniciar-livre') iniciarFicha(null);
+  if (a === 'h-mes') { const d = new Date(hMes); hMes = new Date(d.getFullYear(), d.getMonth() + +b.dataset.v, 1).getTime(); hDia = null; renderTreinos(); }
+  if (a === 'h-dia') { hDia = +b.dataset.d === hDia ? null : +b.dataset.d; renderTreinos(); }
+  if (a === 'item') abrirItem(b.dataset.id, b.dataset.s);
+});
+
+// =========================== FOLHA (formulários) ===========================
+function abrirTr() { $('trOv').hidden = false; }
+function fecharTr() { $('trOv').hidden = true; clearInterval(tickTr); tickTr = null; tr = null; renderPessoal(); }
+function topoTr(titulo, sub) { return '<div class="lc-top"><div><b>' + titulo + '</b>' + (sub ? '<small class="mut" style="display:block;font-size:.74rem">' + sub + '</small>' : '') + '</div><button type="button" class="x" data-t="fechar" aria-label="Fechar">✕</button></div>'; }
+function renderTr() {
+  if (!tr) return; const f = $('formTr'), sc = f.scrollTop;
+  f.innerHTML = ({ ex: htmlEx, ficha: htmlFicha, sessao: htmlSessao, fim: htmlFim, livre: htmlLivre, ck: htmlCheckin })[tr.t]();
+  f.scrollTop = sc;
+}
+function lerTrDom() {
+  if (!tr) return;
+  document.querySelectorAll('#formTr [data-f]').forEach(el => {
+    const f = el.dataset.f, v = el.value;
+    if (el.dataset.j !== undefined) { const s = pes.sessao.exs[+el.dataset.i]?.sets[+el.dataset.j]; if (s) s[f] = v; }
+    else if (el.dataset.i !== undefined) { const it = tr.d.itens[+el.dataset.i]; if (it) it[f] = v; }
+    else tr.d[f] = v;
+  });
+}
+$('formTr').addEventListener('submit', e => e.preventDefault());
+$('formTr').addEventListener('input', e => { if (!e.target.dataset.f) return; lerTrDom(); if (tr?.t === 'sessao') salvarPesDepois(); });
+$('trOv').addEventListener('click', e => { if (e.target === $('trOv')) fecharTr(); });
+
+// ----- exercício -----
+function abrirEx(id) {
+  garantirTreino(); const e = id ? exPorId(id) : null;
+  tr = { t: 'ex', id, d: e ? { ...e, series: e.series || '', reps: e.reps || '', desc: e.desc || '', descanso: e.descanso || '' } : { nome: '', tipo: 'forca', grupo: 'Peito', medida: 'carga', series: 4, reps: 10, desc: '', descanso: 60, obs: '' } };
+  renderTr(); abrirTr();
+}
+function htmlEx() {
+  const d = tr.d, nova = !tr.id;
+  return topoTr(nova ? 'Novo exercício' : 'Editar exercício') + campoTr('Nome', 'nome', d.nome, 'Ex.: Supino inclinado com halteres') +
+    '<div><div class="rot">Tipo</div>' + chipsTr('tipo', TIPOS_EX, d.tipo) + '</div><div><div class="rot">Grupo muscular</div>' + chipsTr('grupo', GRUPOS.map(g => [g, g]), d.grupo) + '</div>' +
+    '<div><div class="rot">Como medir</div>' + chipsTr('medida', MEDIDAS_EX, d.medida) + '</div>' +
+    '<div class="tz-3">' + (d.medida === 'carga' ? campoTr('Séries', 'series', d.series, '4', 'inputmode="numeric"') + campoTr('Repetições', 'reps', d.reps, '10', 'inputmode="numeric"') : d.medida === 'tempo' ? campoTr('Tempo padrão (s)', 'desc', d.desc, '30', 'inputmode="numeric"') + '<span></span>' : '<span></span><span></span>') + campoTr('Descanso (s)', 'descanso', d.descanso, '60', 'inputmode="numeric"') + '</div>' +
+    campoTr('Observação (opcional)', 'obs', d.obs, 'Ex.: banco a 30°') +
+    '<div class="actions"><button type="button" class="btn primary" data-t="ex-salvar">Salvar exercício</button>' + (nova ? '<button type="button" class="btn" data-t="ex-salvar-outro">Salvar e criar outro</button>' : '<button type="button" class="btn danger" data-t="ex-excluir">Excluir</button>') + '</div>';
+}
+function salvarEx(outro) {
+  lerTrDom(); const d = tr.d, nome = (d.nome || '').trim(); if (!nome) { toast('Dê um nome ao exercício'); return; }
+  if (pes.exercicios.some(x => x.id !== tr.id && finTxt(x.nome) === finTxt(nome))) { toast('Já existe um exercício com esse nome'); return; }
+  const reg = { id: tr.id || novoId(), nome, tipo: d.tipo, grupo: d.grupo, medida: d.medida, series: Math.max(1, Math.round(lerNum(d.series)) || 3), reps: Math.round(lerNum(d.reps)) || 0, desc: Math.round(lerNum(d.desc)) || 0, descanso: Math.round(lerNum(d.descanso)) || 0, obs: (d.obs || '').trim() };
+  if (reg.medida !== 'carga') { reg.series = 1; reg.reps = 0; }
+  const i = pes.exercicios.findIndex(x => x.id === reg.id); if (i >= 0) pes.exercicios[i] = reg; else pes.exercicios.push(reg);
+  salvarPes(); toast('Exercício salvo');
+  if (outro) { tr = { t: 'ex', id: null, d: { nome: '', tipo: d.tipo, grupo: d.grupo, medida: d.medida, series: reg.series, reps: reg.reps, desc: reg.desc, descanso: reg.descanso, obs: '' } }; renderTr(); $('formTr').scrollTop = 0; } else fecharTr();
+}
+
+// ----- ficha -----
+function abrirFicha(id) {
+  garantirTreino(); if (!pes.exercicios.length) { toast('Cadastre exercícios primeiro'); trAba = 'ex'; renderTreinos(); return; }
+  const f = id ? pes.fichas.find(x => x.id === id) : null;
+  tr = { t: 'ficha', id, d: f ? { nome: f.nome, dias: [...(f.dias || [])], itens: f.itens.map(i => ({ ...i })) } : { nome: '', dias: [], itens: [] } };
+  renderTr(); abrirTr();
+}
+function htmlFicha() {
+  const d = tr.d;
+  return topoTr(tr.id ? 'Editar ficha' : 'Nova ficha') + campoTr('Nome da ficha', 'nome', d.nome, 'Ex.: Treino A · Peito e tríceps') +
+    '<div><div class="rot">Dias da semana</div>' + chipsTr('dias', [1, 2, 3, 4, 5, 6, 0].map(n => [n, DIAS_CURTO[n]]), d.dias, true) + '</div><div class="rot">Exercícios da ficha</div>' +
+    (d.itens.length ? '<div class="card" style="padding:6px 10px">' + d.itens.map((it, i) => { const e = exPorId(it.exId); if (!e) return ''; return '<div class="tz-fi"><div class="n"><b>' + esc(e.nome) + '</b><span><button type="button" data-t="fi-sobe" data-i="' + i + '" aria-label="Subir">↑</button><button type="button" data-t="fi-desce" data-i="' + i + '" aria-label="Descer">↓</button><button type="button" data-t="fi-tira" data-i="' + i + '" aria-label="Tirar">✕</button></span></div>' +
+      (e.medida === 'carga' ? '<div class="tz-3"><input data-f="series" data-i="' + i + '" value="' + esc(it.series) + '" inputmode="numeric" aria-label="Séries"><input data-f="reps" data-i="' + i + '" value="' + esc(it.reps) + '" inputmode="numeric" aria-label="Repetições"><span class="mut">séries × reps</span></div>' : e.medida === 'tempo' ? '<div class="tz-3"><input data-f="desc" data-i="' + i + '" value="' + esc(it.desc) + '" inputmode="numeric" aria-label="Segundos"><span class="mut">segundos</span><span></span></div>' : '<small class="mut">distância e tempo, preenchidos na hora</small>') + '</div>'; }).join('') + '</div>' : '<p class="dica">Adicione exercícios da biblioteca.</p>') +
+    '<button type="button" class="btn" data-t="fi-add">+ Adicionar da biblioteca</button><div class="actions"><button type="button" class="btn primary" data-t="ficha-salvar">Salvar ficha</button>' + (tr.id ? '<button type="button" class="btn danger" data-t="ficha-excluir">Excluir</button>' : '') + '</div>';
+}
+function addItemFicha() {
+  lerTrDom(); const jaTem = new Set(tr.d.itens.map(i => i.exId)), ops = pes.exercicios.filter(e => !jaTem.has(e.id)).sort((a, b) => a.nome.localeCompare(b.nome)).map(e => [e.id, e.nome + (e.grupo ? ' · ' + e.grupo : '')]);
+  if (!ops.length) { toast('Todos os exercícios já estão na ficha'); return; }
+  escolherOpcao('Adicionar exercício', ops, null, id => { const e = exPorId(id); tr.d.itens.push({ exId: id, series: e.series || 3, reps: e.reps || 10, desc: e.desc || '' }); renderTr(); });
+}
+function salvarFicha() {
+  lerTrDom(); const d = tr.d, nome = (d.nome || '').trim(); if (!nome) { toast('Dê um nome à ficha'); return; } if (!d.itens.length) { toast('Adicione pelo menos um exercício'); return; }
+  const reg = { id: tr.id || novoId(), nome, dias: d.dias.map(Number), itens: d.itens.map(i => ({ exId: i.exId, series: Math.max(1, Math.round(lerNum(i.series)) || 3), reps: Math.round(lerNum(i.reps)) || 0, desc: Math.round(lerNum(i.desc)) || 0 })) };
+  const i = pes.fichas.findIndex(x => x.id === reg.id); if (i >= 0) pes.fichas[i] = reg; else pes.fichas.push(reg);
+  salvarPes(); toast('Ficha salva'); fecharTr();
+}
+
+// ----- treino em andamento -----
+function iniciarFicha(id) {
+  garantirTreino();
+  if (pes.sessao) { mostrarDialogo('Treino em andamento', '<p>Você já tem um treino em andamento: <b>' + esc(pes.sessao.nome) + '</b>.</p>', [{ rotulo: 'Descartar e começar outro', acao: () => { pes.sessao = null; iniciarFicha(id); } }, { rotulo: 'Continuar o atual', acao: () => abrirTreinoSessao() }]); return; }
+  const f = id ? pes.fichas.find(x => x.id === id) : null;
+  if (id && !f) return;
+  pes.sessao = { id: novoId(), fichaId: id, nome: f ? f.nome : 'Treino', ini: Date.now(), restFim: 0, abre: 0, exs: [] };
+  for (const it of f ? f.itens : []) { const e = exPorId(it.exId); if (e) pes.sessao.exs.push(novoExSessao(e, it)); }
+  salvarPes(); abrirTreinoSessao();
+}
+function novoExSessao(e, it) {
+  const ant = ultimoDe(e.nome), n = e.medida === 'carga' ? Math.max(1, Math.round(lerNum(it?.series ?? e.series)) || 3) : (e.medida === 'dist' ? 1 : Math.max(1, ant.length || 1));
+  const reps = it?.reps ?? e.reps ?? '', seg = it?.desc || e.desc || '';
+  return { exId: e.id, nome: e.nome, medida: e.medida, descanso: e.descanso || 0, ant: ant.map(s => ({ ...s })), sets: Array.from({ length: n }, (_, j) => { const a = ant[j] || ant[ant.length - 1] || {}; return { carga: a.carga ?? '', reps: a.reps ?? (reps || ''), tempo: a.tempo ?? (seg || ''), dist: a.dist ?? '', ok: false }; }) };
+}
+function abrirTreinoSessao() { tr = { t: 'sessao', d: pes.sessao }; renderTr(); abrirTr(); clearInterval(tickTr); tickTr = setInterval(tickSessao, 1000); tickSessao(); }
+const mmss = ms => { const s = Math.max(0, Math.round(ms / 1000)); return Math.floor(s / 60) + ':' + pad(s % 60); };
+function tickSessao() {
+  const s = pes.sessao; if (!s || !tr || tr.t !== 'sessao' || $('trOv').hidden) { clearInterval(tickTr); tickTr = null; return; }
+  const t = $('trTimer'); if (t) t.textContent = mmss(Date.now() - s.ini);
+  const r = $('trRest'); if (r) { const falta = s.restFim - Date.now(); r.hidden = !s.restFim; r.classList.toggle('fim', s.restFim && falta <= 0); r.querySelector('b').textContent = falta > 0 ? mmss(falta) : 'pronto'; }
+}
+function exCompleto(ex) { return ex.sets.length > 0 && ex.sets.every(x => x.ok); }
+function recordesSessao(s) { const r = []; for (const ex of s.exs) { if (ex.medida !== 'carga') continue; const hist = melhorCarga(ex.nome, s.id), mx = Math.max(0, ...ex.sets.filter(x => x.ok).map(x => lerNum(x.carga))); if (hist > 0 && mx > hist) r.push([ex.nome, mx]); } return r; }
+function htmlSessao() {
+  const s = pes.sessao, feitos = s.exs.filter(exCompleto).length, rec = recordesSessao(s);
+  let h = '<div class="lc-top"><div><b>' + esc(s.nome) + '</b><small class="mut" style="display:block;font-size:.74rem">' + feitos + ' de ' + s.exs.length + ' exercícios</small></div><div class="tz-clock"><b id="trTimer">0:00</b></div><button type="button" class="x" data-t="fechar" aria-label="Fechar (o treino continua salvo)">✕</button></div>';
+  h += '<div class="tz-rest" id="trRest" hidden>⏱ Descanso <b></b><button type="button" data-t="rest" data-v="15">+15 s</button><button type="button" data-t="rest" data-v="0">pular</button></div>';
+  if (rec.length) h += '<div class="tz-rec">' + rec.map(([n, c]) => '🏆 <b>Recorde de carga:</b> ' + brNum(c) + ' kg em ' + esc(n)).join('<br>') + '</div>';
+  if (!s.exs.length) h += '<p class="dica">Treino sem ficha: adicione os exercícios que for fazendo.</p>';
+  s.exs.forEach((ex, i) => {
+    const aberto = i === s.abre, campos = CAMPOS_SET[ex.medida] || CAMPOS_SET.carga, feito = exCompleto(ex);
+    h += '<div class="card tz-ex' + (feito ? ' ok' : '') + '"><button type="button" class="tz-exh" data-t="abre" data-i="' + i + '"><b>' + (feito ? '✓ ' : '') + esc(ex.nome) + '</b><small>' + ex.sets.filter(x => x.ok).length + '/' + ex.sets.length + '</small></button>';
+    if (aberto) {
+      h += '<div class="tz-set h"><span>Série</span><span>Anterior</span>' + campos.map(c => '<span>' + c[1] + '</span>').join('') + (campos.length === 1 ? '<span></span>' : '') + '<span></span></div>';
+      ex.sets.forEach((st, j) => {
+        const a = ex.ant[j] || ex.ant[ex.ant.length - 1], antTxt = a ? (ex.medida === 'carga' ? brNum(lerNum(a.carga)) + '×' + (a.reps || '') : ex.medida === 'dist' ? brNum(lerNum(a.dist)) + ' km' : brNum(lerNum(a.tempo)) + ' s') : '–';
+        h += '<div class="tz-set"><span>' + (j + 1) + '</span><span class="mut">' + antTxt + '</span>' + campos.map(c => '<input data-f="' + c[0] + '" data-i="' + i + '" data-j="' + j + '" value="' + esc(st[c[0]]) + '" inputmode="decimal" aria-label="' + c[1] + '">').join('') + (campos.length === 1 ? '<span></span>' : '') + '<button type="button" class="' + (st.ok ? 'ok' : 'no') + '" data-t="ok" data-i="' + i + '" data-j="' + j + '" aria-label="Série feita">' + (st.ok ? '✓' : '') + '</button></div>';
+      });
+      h += '<div class="actions"><button type="button" class="btn" data-t="serie" data-i="' + i + '">+ série</button><button type="button" class="btn" data-t="ex-tira" data-i="' + i + '">Tirar exercício</button></div>';
+    }
+    h += '</div>';
+  });
+  h += '<button type="button" class="btn" data-t="ex-add">+ Exercício</button><div class="actions"><button type="button" class="btn primary" data-t="terminar">Terminar treino</button><button type="button" class="btn danger" data-t="descartar">Descartar</button></div>';
+  return h;
+}
+function htmlFim() {
+  const s = pes.sessao, d = tr.d, sets = s.exs.reduce((a, e) => a + e.sets.filter(x => x.ok).length, 0), min = Math.max(1, Math.round((Date.now() - s.ini) / 60000));
+  return topoTr('Treino concluído 💪', min + ' min · ' + sets + ' séries feitas') +
+    '<div><div class="rot">Esforço do treino</div>' + intHTML('int', d.int) + '</div><div><div class="rot">Como você se sente agora</div>' + faceHTML('humor', d.humor) + '</div>' +
+    '<div><div class="rot">Dor ou desconforto</div>' + chipsTr('dor', [['', 'Nenhum'], ...DORES_LOCAIS.slice(0, 5).map(x => [x, x])], d.dor, true) + '</div>' + campoTr('Nota (opcional)', 'nota', d.nota, 'Como foi o treino?') +
+    '<div class="actions"><button type="button" class="btn primary" data-t="fim-salvar">Salvar treino</button><button type="button" class="btn" data-t="voltar-sessao">Voltar ao treino</button></div>';
+}
+async function salvarTreinoFeito() {
+  lerTrDom(); const s = pes.sessao, d = tr.d, exs = s.exs.map(e => ({ nome: e.nome, medida: e.medida, sets: e.sets.filter(x => x.ok).map(x => ({ carga: lerNum(x.carga), reps: lerNum(x.reps), tempo: lerNum(x.tempo), dist: lerNum(x.dist) })) })).filter(e => e.sets.length);
+  if (!exs.length) { toast('Marque pelo menos uma série como feita'); return; }
+  const min = Math.max(1, Math.round((Date.now() - s.ini) / 60000)), rec = recordesSessao(s), vol = exs.reduce((a, e) => a + e.sets.reduce((b, x) => b + (e.medida === 'carga' ? x.carga * x.reps : 0), 0), 0), nSets = exs.reduce((a, e) => a + e.sets.length, 0);
+  const dores = (d.dor || []).filter(Boolean);
+  pes.atividades.push({ id: s.id, t: s.ini, tipo: 'ficha', nome: s.nome, fichaId: s.fichaId, min, int: d.int || 0, humor: d.humor || null, dor: dores, nota: (d.nota || '').trim(), exs, conta: true });
+  for (const l of dores) pes.dores.push({ id: novoId(), t: Date.now(), local: l, nivel: 'leve', nota: 'depois do treino ' + s.nome, resolvida: false });
+  pes.sessao = null; await salvarPes(); clearInterval(tickTr); tickTr = null; tr = null; $('trOv').hidden = true; renderPessoal();
+  mostrarDialogo('Treino salvo 💪', '<p><b>' + esc(s.nome) + '</b><br>' + min + ' min · ' + exs.length + ' exercícios · ' + nSets + ' séries' + (vol ? ' · ' + Math.round(vol).toLocaleString('pt-BR') + ' kg movidos' : '') + '</p>' + (rec.length ? '<p>' + rec.map(([n, c]) => '🏆 recorde: ' + brNum(c) + ' kg em ' + esc(n)).join('<br>') + '</p>' : '') + '<p class="dica">Conta como dia ativo ✓</p>');
+}
+
+// ----- atividade livre -----
+function abrirLivre(id, dataIso) {
+  garantirTreino(); const a = id ? pes.atividades.find(x => x.id === id) : null, agora = new Date();
+  const d = a ? new Date(a.t) : agora;
+  tr = { t: 'livre', id, d: { nome: a?.nome || '', min: a?.min || 15, outroMin: '', int: a?.int || 2, quando: a ? 'outro' : dataIso ? 'outro' : 'agora', data: dataIso || dataInput(d.getTime()), hora: fmtHora(d), humor: a?.humor || null, nota: a?.nota || '', conta: a ? a.conta !== false : true } };
+  if (a && ![10, 15, 20, 30, 45, 60].includes(a.min)) { tr.d.outroMin = a.min; tr.d.min = 'outro'; }
+  renderTr(); abrirTr();
+}
+function htmlLivre() {
+  const d = tr.d, rec = []; for (const a of pes.atividades.slice().sort((x, y) => y.t - x.t)) if (a.tipo === 'livre' && !rec.includes(a.nome) && rec.length < 8) rec.push(a.nome);
+  const sug = [...rec, ...['Alongamento', 'Caminhada', 'Yoga', 'Bike', 'Futebol'].filter(x => !rec.some(r => finTxt(r) === finTxt(x)))].slice(0, 8);
+  return topoTr(tr.id ? 'Editar atividade' : 'Registrar atividade', 'descreva o que fez, do seu jeito') + campoTr('O que você fez?', 'nome', d.nome, 'Ex.: alongamento de costas e ombros') +
+    '<div class="tz-chips">' + sug.map(n => '<button type="button" class="chip" data-t="sug" data-v="' + esc(n) + '">' + esc(n) + '</button>').join('') + '</div>' +
+    '<div><div class="rot">Quanto tempo</div>' + chipsTr('min', [10, 15, 20, 30, 45, 60, 'outro'].map(m => [m, m === 'outro' ? 'outro' : m === 60 ? '1 h' : m + ' min']), d.min) + (d.min === 'outro' ? campoTr('Minutos', 'outroMin', d.outroMin, 'Ex.: 75', 'inputmode="numeric"') : '') + '</div>' +
+    '<div><div class="rot">Intensidade que você sentiu</div>' + intHTML('int', d.int) + '</div>' +
+    '<div><div class="rot">Quando</div>' + chipsTr('quando', [['agora', 'Agora'], ['hoje', 'Hoje, outro horário'], ['outro', 'Outro dia']], d.quando) + (d.quando === 'hoje' ? '<div class="field"><label>Horário</label><input data-f="hora" type="time" value="' + esc(d.hora) + '"></div>' : '') + (d.quando === 'outro' ? '<div class="tz-3" style="grid-template-columns:1.4fr 1fr"><div class="field"><label>Dia</label><input data-f="data" type="date" value="' + esc(d.data) + '" max="' + dataInput(Date.now()) + '"></div><div class="field"><label>Horário</label><input data-f="hora" type="time" value="' + esc(d.hora) + '"></div></div>' : '') + '</div>' +
+    '<div><div class="rot">Como se sentiu depois (opcional)</div>' + faceHTML('humor', d.humor) + '</div>' + campoTr('Nota (opcional)', 'nota', d.nota, '') +
+    '<label class="check"><input type="checkbox" data-t="conta" ' + (d.conta ? 'checked' : '') + '><span>Conta como dia de exercício<small>vale para a meta da semana e a sequência</small></span></label>' +
+    '<div class="actions"><button type="button" class="btn primary" data-t="livre-salvar">Salvar atividade</button>' + (tr.id ? '<button type="button" class="btn danger" data-t="livre-excluir">Excluir</button>' : '') + '</div>';
+}
+async function salvarLivre() {
+  lerTrDom(); const d = tr.d, nome = (d.nome || '').trim(); if (!nome) { toast('Escreva o que você fez'); return; }
+  const min = d.min === 'outro' ? Math.round(lerNum(d.outroMin)) : +d.min; if (!(min > 0)) { toast('Informe o tempo'); return; }
+  let t = Date.now(); if (d.quando !== 'agora') { const [y, m, dd] = (d.quando === 'hoje' ? dataInput(Date.now()) : d.data).split('-').map(Number), [hh, mi] = (d.hora || '12:00').split(':').map(Number); t = new Date(y, m - 1, dd, hh, mi).getTime(); if (t > Date.now() + 60000) { toast('Essa data ainda não chegou'); return; } }
+  const reg = { id: tr.id || novoId(), t, tipo: 'livre', nome, min, int: d.int || 2, humor: d.humor || null, nota: (d.nota || '').trim(), conta: !!d.conta };
+  if (tr.id) { const i = pes.atividades.findIndex(x => x.id === tr.id); const ant = pes.atividades[i]; if (d.quando === 'outro' || i < 0) pes.atividades[i] = reg; else { reg.t = ant.t; pes.atividades[i] = reg; } } else pes.atividades.push(reg);
+  await salvarPes(); fecharTr(); toast('Atividade salva' + (reg.conta ? ' · dia ativo ✓' : ''));
+}
+
+// ----- ver, editar ou excluir um registro -----
+function abrirItem(id, src) {
+  garantirTreino();
+  if (src === 'atv') { const a = pes.atividades.find(x => x.id === id); if (!a) return; if (a.tipo === 'livre') { abrirLivre(id); return; }
+    const exs = (a.exs || []).map(e => '<p><b>' + esc(e.nome) + '</b><br><small>' + e.sets.map(s => e.medida === 'carga' ? brNum(s.carga) + '×' + s.reps : e.medida === 'dist' ? brNum(s.dist) + ' km' : brNum(s.tempo) + ' s').join(' · ') + '</small></p>').join('');
+    mostrarDialogo(esc(a.nome), '<p>' + fmtDMA(a.t) + ' · ' + fmtHora(new Date(a.t)) + ' · ' + fmtMin(a.min || 0) + (a.int ? ' · ' + NIVEIS[a.int].toLowerCase() : '') + (a.humor ? ' · depois ' + HUMOR[a.humor] : '') + '</p>' + exs + (a.nota ? '<p class="dica">' + esc(a.nota) + '</p>' : ''), [{ rotulo: 'Fechar' }, { rotulo: 'Excluir', acao: () => confirmarExcluirAtiv(id, 'atv') }]); return; }
+  const l = src === 'tre' ? pes.treinos.find(x => x.id === id) : pes.corridas.find(x => x.id === id); if (!l) return;
+  const nome = src === 'tre' ? 'Treino registrado pelo chat' : 'Corrida registrada pelo chat';
+  mostrarDialogo(nome, '<p>' + fmtDMA(l.t) + (src === 'tre' ? '</p>' + (l.exercicios || []).map(e => '<p>' + esc(maiuscula(e.nome)) + ' ' + e.series + '×' + e.reps + (e.carga ? ' · ' + brNum(e.carga) + ' kg' : '') + '</p>').join('') : ' · ' + brNum(l.km || 0) + ' km' + (l.min ? ' em ' + Math.round(l.min) + ' min' : '') + '</p>'), [{ rotulo: 'Fechar' }, { rotulo: 'Excluir', acao: () => confirmarExcluirAtiv(id, src) }]);
+}
+function confirmarExcluirAtiv(id, src) {
+  mostrarDialogo('Excluir registro?', '<p>Essa atividade deixa de contar como dia ativo.</p>', [{ rotulo: 'Cancelar' }, { rotulo: 'Excluir', acao: async () => { if (src === 'atv') pes.atividades = pes.atividades.filter(x => x.id !== id); else if (src === 'tre') pes.treinos = pes.treinos.filter(x => x.id !== id); else pes.corridas = pes.corridas.filter(x => x.id !== id); await salvarPes(); renderPessoal(); toast('Registro excluído'); } }]);
+}
+
+// =========================== CORPO ===========================
+function renderCorpo() {
+  garantirTreino(); const box = $('p-corpo'), agora = Date.now();
+  const peso = pes.medidas.filter(m => m.tipo === 'peso').sort((a, b) => a.t - b.t), p0 = peso[peso.length - 1], ref = peso.filter(m => m.t <= agora - 30 * DIA_MS).pop() || peso[0];
+  let h = '<div class="card"><div class="tz-pesoh"><b class="tz-big">' + (p0 ? brNum(p0.valor) + ' kg' : '— kg') + '</b>' + (p0 && ref && ref !== p0 ? '<span class="mut">' + (p0.valor - ref.valor > 0 ? '+' : '') + brNum(Math.round((p0.valor - ref.valor) * 10) / 10) + ' kg desde ' + fmtDM(ref.t) + '</span>' : '') + '</div>';
+  const pts = peso.filter(m => m.t >= agora - corpoPer * DIA_MS);
+  if (pts.length >= 2) { const W = 320, H = 110, mn = Math.min(...pts.map(p => p.valor)) - 0.5, mx = Math.max(...pts.map(p => p.valor)) + 0.5, t0 = pts[0].t, t1 = pts[pts.length - 1].t, X = t => 30 + (t - t0) / (t1 - t0 || 1) * (W - 42), Y = v => H - 18 - (v - mn) / (mx - mn || 1) * (H - 30);
+    h += '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" class="graf">' + [mn, (mn + mx) / 2, mx].map(v => '<line x1="30" x2="' + (W - 8) + '" y1="' + Y(v).toFixed(1) + '" y2="' + Y(v).toFixed(1) + '" stroke="#245440"/><text x="26" y="' + (Y(v) + 3).toFixed(1) + '" fill="#9a9cae" font-size="9" text-anchor="end">' + brNum(Math.round(v * 10) / 10) + '</text>').join('') + '<polyline fill="none" stroke="var(--accent)" stroke-width="2.5" points="' + pts.map(p => X(p.t).toFixed(1) + ',' + Y(p.valor).toFixed(1)).join(' ') + '"/>' + pts.map(p => '<circle cx="' + X(p.t).toFixed(1) + '" cy="' + Y(p.valor).toFixed(1) + '" r="3" fill="var(--accent)"/>').join('') + '<text x="30" y="' + (H - 3) + '" fill="#9a9cae" font-size="9">' + fmtDM(t0) + '</text><text x="' + (W - 8) + '" y="' + (H - 3) + '" fill="#9a9cae" font-size="9" text-anchor="end">' + fmtDM(t1) + '</text></svg>';
+  } else h += '<p class="dica">' + (peso.length ? 'Registre mais um peso para ver o gráfico.' : 'Registre seu peso para acompanhar a evolução.') + '</p>';
+  h += '<div class="tz-chips">' + [[30, '30 dias'], [90, '90 dias'], [365, '1 ano']].map(([n, t]) => '<button type="button" class="chip' + (corpoPer === n ? ' on' : '') + '" data-tc="per" data-v="' + n + '">' + t + '</button>').join('') + '</div></div>';
+  const tipos = [...new Set(pes.medidas.filter(m => m.tipo !== 'peso').map(m => m.tipo))];
+  if (tipos.length) h += '<div class="card"><div class="rot" style="margin:0 0 4px">Medidas</div>' + tipos.map(tp => { const l = pes.medidas.filter(m => m.tipo === tp).sort((a, b) => b.t - a.t), dlt = l[1] ? Math.round((l[0].valor - l[1].valor) * 10) / 10 : null; return '<button type="button" class="tz-row" data-tc="med" data-id="' + esc(l[0].id) + '"><span><b>' + esc(ROTULO_MEDIDA[tp] || maiuscula(tp)) + '</b><small>' + fmtDM(l[0].t) + '</small></span><span><b>' + brNum(l[0].valor) + ' ' + (UNID_MEDIDA[tp] || 'cm') + '</b>' + (dlt !== null ? ' <small class="mut">' + (dlt > 0 ? '+' : '') + brNum(dlt) + '</small>' : '') + '</span></button>'; }).join('') + '</div>';
+  const dores = pes.dores.filter(d => !d.resolvida).sort((a, b) => b.t - a.t);
+  h += '<div class="card"><div class="rot" style="margin:0 0 4px">Dores e lesões</div>' + (dores.length ? dores.map(d => '<button type="button" class="tz-row" data-tc="dor" data-id="' + esc(d.id) + '"><span><b>' + esc(d.local) + '</b><small>' + esc(d.nota || '') + '</small></span><span class="mut">' + ({ leve: 'leve', moderada: 'moderada', forte: 'forte' }[d.nivel] || '') + '<br>há ' + Math.max(0, -difDias(d.t)) + (Math.max(0, -difDias(d.t)) === 1 ? ' dia' : ' dias') + '</span></button>').join('') : '<p class="dica" style="margin:4px 0">Nenhuma dor registrada.</p>') + '</div>';
+  h += '<div class="actions"><button type="button" class="btn primary" data-tc="pesar">+ Pesar</button><button type="button" class="btn" data-tc="medir">+ Medidas</button><button type="button" class="btn" data-tc="doeu">+ Dor</button></div>';
+  box.innerHTML = h;
+}
+$('p-corpo').addEventListener('click', e => {
+  const b = e.target.closest('[data-tc]'); if (!b) return; const a = b.dataset.tc;
+  if (a === 'per') { corpoPer = +b.dataset.v; renderCorpo(); }
+  if (a === 'pesar') formMedida('peso');
+  if (a === 'medir') formMedida(null);
+  if (a === 'med') { const m = pes.medidas.find(x => x.id === b.dataset.id); if (m) formMedida(m.tipo); }
+  if (a === 'doeu') formDor();
+  if (a === 'dor') { const d = pes.dores.find(x => x.id === b.dataset.id); if (!d) return; escolherOpcao(d.local, [['res', 'Já passou (resolvida)'], ['forte', 'Está forte'], ['moderada', 'Está moderada'], ['leve', 'Está leve'], ['del', 'Excluir registro']], null, async v => { if (v === 'res') d.resolvida = true; else if (v === 'del') pes.dores = pes.dores.filter(x => x.id !== d.id); else d.nivel = v; await salvarPes(); renderCorpo(); }); }
+});
+function formMedida(tipo) {
+  const tipos = ['peso', 'cintura', 'peito', 'braco', 'coxa', 'quadril', 'gordura'], campos = [];
+  if (!tipo) campos.push({ k: 'tipo', rot: 'O que medir', tipo: 'select', ops: tipos.filter(t => t !== 'peso').map(t => [t, ROTULO_MEDIDA[t]]), v: 'cintura' });
+  const t0 = tipo || null;
+  campos.push({ k: 'valor', rot: 'Valor' + (t0 ? ' (' + (UNID_MEDIDA[t0] || 'cm') + ')' : ' (cm, ou % para gordura)'), tipo: 'num', ph: t0 === 'peso' ? '78,4' : '84', v: '' }, { k: 'data', rot: 'Dia', tipo: 'date', v: dataInput(Date.now()) });
+  abrirForm(t0 ? (t0 === 'peso' ? 'Registrar peso' : 'Medida: ' + (ROTULO_MEDIDA[t0] || t0)) : 'Registrar medidas', campos, async d => {
+    const v = lerNum(d.valor); if (!(v > 0)) { toast('Informe o valor'); return false; } const [y, m, dd] = d.data.split('-').map(Number), t = new Date(y, m - 1, dd, 12).getTime();
+    pes.medidas.push({ id: novoId(), tipo: tipo || d.tipo, valor: Math.round(v * 10) / 10, t: d.data === dataInput(Date.now()) ? Date.now() : t }); await salvarPes(); renderCorpo(); toast('Registrado');
+  });
+}
+function formDor() {
+  abrirForm('Registrar dor ou desconforto', [{ k: 'local', rot: 'Onde dói', ph: 'Ex.: ombro direito', v: '' }, { k: 'nivel', rot: 'Intensidade', tipo: 'select', ops: [['leve', 'Leve'], ['moderada', 'Moderada'], ['forte', 'Forte']], v: 'leve' }, { k: 'nota', rot: 'Nota (opcional)', v: '' }],
+    async d => { const l = (d.local || '').trim(); if (!l) { toast('Diga onde dói'); return false; } pes.dores.push({ id: novoId(), t: Date.now(), local: maiuscula(l), nivel: d.nivel, nota: (d.nota || '').trim(), resolvida: false }); await salvarPes(); renderCorpo(); });
+}
+
+// =========================== EMOÇÕES ===========================
+const COR_HUMOR = ['', '#E0463C', '#EE8B4F', '#E8D26B', '#8FD3A0', '#9BE3B8'];
+function renderEmocoes() {
+  garantirTreino(); const box = $('p-emocoes'), agora = new Date(), mesIni = emMes || new Date(agora.getFullYear(), agora.getMonth(), 1).getTime(), dm = new Date(mesIni), nDias = new Date(dm.getFullYear(), dm.getMonth() + 1, 0).getDate(), ehAtual = mesIni === new Date(agora.getFullYear(), agora.getMonth(), 1).getTime();
+  emMes = mesIni; if (emDiaSel && (emDiaSel < 1 || emDiaSel > nDias)) emDiaSel = null; if (!emDiaSel && ehAtual) emDiaSel = agora.getDate();
+  const reg = d => pes.diario.find(x => x.chave === chaveDia(new Date(dm.getFullYear(), dm.getMonth(), d).getTime()));
+  const hoje = pes.diario.find(x => x.chave === hojeChave()) || {};
+  let h = '<div class="card"><div class="tz-top"><div class="rot" style="margin:0">Hoje</div><button type="button" class="btn primary mini-b" data-te="checkin">' + (hoje.humor || hoje.energia ? 'Editar check-in' : 'Fazer check-in') + '</button></div><div class="vals" style="margin-top:6px"><span>humor <b>' + (HUMOR[hoje.humor] || '—') + '</b></span><span>energia <b>' + (hoje.energia ? '⚡' + hoje.energia : '—') + '</b></span>' + (hoje.estresse ? '<span>estresse <b>' + hoje.estresse + '/5</b></span>' : '') + (hoje.sono ? '<span>sono <b>' + brNum(hoje.sono) + ' h</b></span>' : '') + '</div></div>';
+  h += '<div class="tz-nav"><button type="button" class="nav" data-te="mes" data-v="-1" aria-label="Mês anterior">‹</button><b>' + maiuscula(MESES_LONGO[dm.getMonth()]) + (dm.getFullYear() !== agora.getFullYear() ? ' de ' + dm.getFullYear() : '') + '</b><button type="button" class="nav" data-te="mes" data-v="1"' + (ehAtual ? ' disabled' : '') + ' aria-label="Próximo mês">›</button></div>';
+  h += '<div class="tz-cal hum">' + ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'].map(d => '<div class="h">' + d + '</div>').join('') + '<i></i>'.repeat((new Date(mesIni).getDay() + 6) % 7);
+  for (let d = 1; d <= nDias; d++) { const r = reg(d), v = r?.humor; h += '<button type="button" data-te="dia" data-d="' + d + '" class="' + (d === emDiaSel ? 'sel' : '') + '" style="' + (v ? 'background:' + COR_HUMOR[v] + ';color:#0B2219' : '') + '">' + d + '</button>'; }
+  h += '</div><div class="tz-leg"><span>😞 baixo</span><span style="margin-left:auto">alto 😄</span></div>';
+  if (emDiaSel) { const r = reg(emDiaSel), t0 = new Date(dm.getFullYear(), dm.getMonth(), emDiaSel), ativ = listaAtiv().filter(x => chaveDia(x.t) === chaveDia(t0.getTime()));
+    h += '<div class="card"><div class="rot" style="margin:0 0 4px">' + maiuscula(DIAS[t0.getDay()]) + ', ' + emDiaSel + '</div>' + (r ? '<div class="vals"><span>humor <b>' + (HUMOR[r.humor] || '—') + '</b></span><span>energia <b>' + (r.energia ? '⚡' + r.energia : '—') + '</b></span>' + (r.estresse ? '<span>estresse <b>' + r.estresse + '/5</b></span>' : '') + (r.sono ? '<span>sono <b>' + brNum(r.sono) + ' h</b>' + (r.sonoQ ? ' · ' + r.sonoQ : '') + '</span>' : '') + '</div>' + ((r.tags || []).length ? '<div class="tz-chips" style="margin-top:6px">' + r.tags.map(t => '<span class="chip">' + esc(t) + '</span>').join('') + '</div>' : '') + (r.nota ? '<p class="dica" style="margin:6px 0 0">“' + esc(r.nota) + '”</p>' : '') : '<p class="dica" style="margin:4px 0">Sem check-in neste dia.</p>') + (ativ.length ? '<small class="mut">Exercício: ' + ativ.map(x => esc(x.nome)).join(', ') + '</small>' : '') + '</div>'; }
+  h += '<div class="card"><div class="rot" style="margin:0 0 6px">Padrões que o app percebeu</div>' + padroesHTML() + '</div>';
+  box.innerHTML = h;
+}
+function padroesHTML() {
+  const lim = Date.now() - 60 * DIA_MS, regs = pes.diario.filter(x => new Date(x.chave + 'T12:00').getTime() >= lim), ativ = diasAtivosChaves(), out = [];
+  const med = l => l.reduce((a, b) => a + b, 0) / l.length, f1 = v => brNum(Math.round(v * 10) / 10);
+  const cH = regs.filter(x => x.humor), com = cH.filter(x => ativ.has(x.chave)).map(x => x.humor), sem = cH.filter(x => !ativ.has(x.chave)).map(x => x.humor);
+  if (com.length >= 3 && sem.length >= 3) out.push('Nos dias com exercício o humor médio foi <b>' + f1(med(com)) + '</b>, contra <b>' + f1(med(sem)) + '</b> nos dias sem.');
+  const cS = regs.filter(x => x.sono && x.energia), poucos = cS.filter(x => x.sono < 6).map(x => x.energia), ok = cS.filter(x => x.sono >= 6).map(x => x.energia);
+  if (poucos.length >= 2 && ok.length >= 2) out.push('Com menos de 6 h de sono a energia ficou em <b>' + f1(med(poucos)) + '</b>, contra <b>' + f1(med(ok)) + '</b> com 6 h ou mais.');
+  const cont = {}; for (const x of regs.filter(r => r.humor && r.humor <= 2)) for (const t of x.tags || []) cont[t] = (cont[t] || 0) + 1;
+  const top = Object.entries(cont).sort((a, b) => b[1] - a[1])[0]; if (top && top[1] >= 2) out.push('<b>' + esc(top[0]) + '</b> é o motivo mais citado nos dias de humor baixo.');
+  return out.length ? out.map(t => '<p class="tz-ins">• ' + t + '</p>').join('') : '<p class="dica" style="margin:0">Faça check-ins por alguns dias (e registre seus exercícios) para o app cruzar humor, energia, sono e atividade.</p>';
+}
+$('p-emocoes').addEventListener('click', e => {
+  const b = e.target.closest('[data-te]'); if (!b) return; const a = b.dataset.te;
+  if (a === 'checkin') abrirCheckin();
+  if (a === 'mes') { const d = new Date(emMes); emMes = new Date(d.getFullYear(), d.getMonth() + +b.dataset.v, 1).getTime(); emDiaSel = null; renderEmocoes(); }
+  if (a === 'dia') { emDiaSel = +b.dataset.d === emDiaSel ? null : +b.dataset.d; renderEmocoes(); }
+});
+function abrirCheckin() {
+  garantirTreino(); const r = pes.diario.find(x => x.chave === hojeChave()) || {};
+  tr = { t: 'ck', d: { humor: r.humor || null, energia: r.energia || null, estresse: r.estresse || null, sono: r.sono ? String(r.sono) : '', sonoQ: r.sonoQ || '', tags: [...(r.tags || [])], nota: r.nota || '' } }; renderTr(); abrirTr();
+}
+function htmlCheckin() {
+  const d = tr.d;
+  return topoTr('Check-in de hoje', DIAS[new Date().getDay()] + ', ' + new Date().getDate()) +
+    '<div><div class="rot">Humor</div>' + faceHTML('humor', d.humor) + '</div>' +
+    '<div><div class="rot">Energia</div>' + chipsTr('energia', [1, 2, 3, 4, 5].map(n => [n, '⚡' + n]), d.energia) + '</div>' +
+    '<div><div class="rot">Estresse ou ansiedade</div>' + chipsTr('estresse', [[1, '1 calmo'], [2, '2'], [3, '3'], [4, '4'], [5, '5 alto']], d.estresse) + '</div>' +
+    '<div class="tz-3" style="grid-template-columns:1fr 1.6fr"><div class="field"><label>Sono (horas)</label><input data-f="sono" type="text" inputmode="decimal" value="' + esc(d.sono) + '" placeholder="7,5"></div><div><div class="rot" style="margin-top:0">Qualidade</div>' + chipsTr('sonoQ', [['ruim', 'Ruim'], ['ok', 'Ok'], ['boa', 'Boa']], d.sonoQ) + '</div></div>' +
+    '<div><div class="rot">O que influenciou?</div>' + chipsTr('tags', MOTIVOS.map(m => [m, m]), d.tags, true) + '</div>' +
+    '<div class="field"><label>Nota (opcional)</label><textarea data-f="nota" rows="2" placeholder="Como foi o dia?">' + esc(d.nota) + '</textarea></div>' +
+    '<div class="actions"><button type="button" class="btn primary" data-t="ck-salvar">Salvar check-in</button></div>';
+}
+async function salvarCheckin() {
+  lerTrDom(); const d = tr.d; if (!d.humor && !d.energia && !d.estresse && !d.sono) { toast('Marque pelo menos uma coisa'); return; }
+  salvarDiario(d.energia || undefined, d.humor || undefined, (d.nota || '').trim());
+  const r = pes.diario.find(x => x.chave === hojeChave()); Object.assign(r, { estresse: d.estresse || null, sono: lerNum(d.sono) || null, sonoQ: d.sonoQ || '', tags: d.tags || [] });
+  await salvarPes(); fecharTr(); toast('Check-in salvo');
+}
+
+// ----- cliques da folha -----
+$('formTr').addEventListener('click', async e => {
+  const b = e.target.closest('[data-t]'); if (!b || !tr) return; const a = b.dataset.t;
+  if (b.tagName === 'INPUT') return;
+  if (a === 'fechar') { lerTrDom(); if (tr.t === 'sessao') await salvarPes(); fecharTr(); return; }
+  if (a === 'set') { lerTrDom(); const c = b.dataset.c; let v = b.dataset.v; if (/^\d+$/.test(v) && c !== 'dor') v = +v; if (tr.d[c] === v && ['humor', 'energia', 'estresse', 'sonoQ'].includes(c)) v = null; tr.d[c] = v; if (c === 'medida' && v === 'tempo' && !tr.d.desc) tr.d.desc = 30; renderTr(); return; }
+  if (a === 'multi') { lerTrDom(); const c = b.dataset.c, v = /^\d+$/.test(b.dataset.v) && c === 'dias' ? +b.dataset.v : b.dataset.v; if (v === '' && c === 'dor') { tr.d.dor = []; renderTr(); return; } const l = tr.d[c] || (tr.d[c] = []), i = l.indexOf(v); if (i >= 0) l.splice(i, 1); else l.push(v); renderTr(); return; }
+  if (a === 'sug') { lerTrDom(); tr.d.nome = b.dataset.v; renderTr(); return; }
+  if (a === 'conta') { tr.d.conta = b.checked; return; }
+  if (a === 'ex-salvar') salvarEx(false);
+  if (a === 'ex-salvar-outro') salvarEx(true);
+  if (a === 'ex-excluir') mostrarDialogo('Excluir exercício?', '<p>As fichas que usam este exercício deixam de mostrá-lo. O histórico é mantido.</p>', [{ rotulo: 'Cancelar' }, { rotulo: 'Excluir', acao: async () => { pes.exercicios = pes.exercicios.filter(x => x.id !== tr.id); for (const f of pes.fichas) f.itens = f.itens.filter(i => i.exId !== tr.id); await salvarPes(); fecharTr(); } }]);
+  if (a === 'fi-add') addItemFicha();
+  if (a === 'fi-sobe' || a === 'fi-desce') { lerTrDom(); const i = +b.dataset.i, j = a === 'fi-sobe' ? i - 1 : i + 1, l = tr.d.itens; if (j >= 0 && j < l.length) { [l[i], l[j]] = [l[j], l[i]]; renderTr(); } }
+  if (a === 'fi-tira') { lerTrDom(); tr.d.itens.splice(+b.dataset.i, 1); renderTr(); }
+  if (a === 'ficha-salvar') salvarFicha();
+  if (a === 'ficha-excluir') mostrarDialogo('Excluir ficha?', '<p>Os treinos já feitos continuam no histórico.</p>', [{ rotulo: 'Cancelar' }, { rotulo: 'Excluir', acao: async () => { pes.fichas = pes.fichas.filter(x => x.id !== tr.id); await salvarPes(); fecharTr(); } }]);
+  // treino em andamento
+  const s = pes.sessao;
+  if (a === 'abre') { lerTrDom(); s.abre = s.abre === +b.dataset.i ? -1 : +b.dataset.i; renderTr(); tickSessao(); }
+  if (a === 'ok') { lerTrDom(); const i = +b.dataset.i, ex = s.exs[i], st = ex.sets[+b.dataset.j]; st.ok = !st.ok; if (st.ok && ex.descanso && ex.medida === 'carga') s.restFim = Date.now() + ex.descanso * 1000; if (st.ok && exCompleto(ex)) { const prox = s.exs.findIndex((x, k) => k > i && !exCompleto(x)); s.abre = prox >= 0 ? prox : -1; s.restFim = prox >= 0 ? s.restFim : 0; } salvarPesDepois(); renderTr(); tickSessao(); }
+  if (a === 'rest') { const v = +b.dataset.v; s.restFim = v ? Math.max(s.restFim, Date.now()) + v * 1000 : 0; renderTr(); tickSessao(); }
+  if (a === 'serie') { lerTrDom(); const ex = s.exs[+b.dataset.i], u = ex.sets[ex.sets.length - 1] || {}; ex.sets.push({ carga: u.carga ?? '', reps: u.reps ?? '', tempo: u.tempo ?? '', dist: '', ok: false }); salvarPesDepois(); renderTr(); tickSessao(); }
+  if (a === 'ex-tira') { lerTrDom(); s.exs.splice(+b.dataset.i, 1); s.abre = Math.min(s.abre, s.exs.length - 1); salvarPesDepois(); renderTr(); tickSessao(); }
+  if (a === 'ex-add') { lerTrDom(); const jaTem = new Set(s.exs.map(x => x.exId)), ops = pes.exercicios.filter(x => !jaTem.has(x.id)).sort((x, y) => x.nome.localeCompare(y.nome)).map(x => [x.id, x.nome]); if (!ops.length) { toast(pes.exercicios.length ? 'Todos os exercícios já estão no treino' : 'Cadastre exercícios na aba Treinos'); return; } escolherOpcao('Adicionar ao treino', ops, null, id => { s.exs.push(novoExSessao(exPorId(id), null)); s.abre = s.exs.length - 1; salvarPesDepois(); renderTr(); tickSessao(); }); }
+  if (a === 'terminar') { lerTrDom(); await salvarPes(); tr = { t: 'fim', d: { int: 3, humor: null, dor: [], nota: '' } }; renderTr(); }
+  if (a === 'voltar-sessao') { lerTrDom(); abrirTreinoSessao(); }
+  if (a === 'fim-salvar') salvarTreinoFeito();
+  if (a === 'descartar') mostrarDialogo('Descartar treino?', '<p>O que foi marcado neste treino será perdido.</p>', [{ rotulo: 'Cancelar' }, { rotulo: 'Descartar', acao: async () => { pes.sessao = null; await salvarPes(); fecharTr(); } }]);
+  if (a === 'livre-salvar') salvarLivre();
+  if (a === 'livre-excluir') mostrarDialogo('Excluir atividade?', '<p>Ela deixa de contar como dia ativo.</p>', [{ rotulo: 'Cancelar' }, { rotulo: 'Excluir', acao: async () => { pes.atividades = pes.atividades.filter(x => x.id !== tr.id); await salvarPes(); fecharTr(); toast('Atividade excluída'); } }]);
+  if (a === 'ck-salvar') salvarCheckin();
+});
+
+// ----- liga tudo no AgZote -----
+if (APP === 'ag') {
+  const st = document.createElement('style');
+  st.textContent = `
+.tz-sub, .tz-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; } .tz-chips .chip, .tz-sub .chip { font-weight: 700; }
+.tz-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; } .tz-tag { font-style: normal; font-size: 0.66rem; padding: 2px 8px; border-radius: 9px; background: var(--bg); color: var(--accent); margin-left: 4px; white-space: nowrap; }
+.tz-ev { display: flex; gap: 10px; align-items: center; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); padding: 9px 0; color: var(--ink); font: inherit; } .tz-ev:last-of-type { border-bottom: 0; } .tz-ev > div { flex: 1; min-width: 0; } .tz-ev small { color: var(--muted); font-size: 0.74rem; }
+.tz-ev .ic { width: 32px; height: 32px; border-radius: 10px; background: var(--bg); display: grid; place-items: center; flex: none; } .tz-ev .ok { color: var(--accent); font-weight: 800; }
+.tz-lnk { color: var(--accent); text-decoration: underline; margin-left: 6px; text-transform: none; letter-spacing: 0; font-weight: 700; } .tz-sem { cursor: pointer; }
+.tz-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); padding: 9px 0; color: var(--ink); font: inherit; } .tz-row:last-child { border-bottom: 0; } .tz-row small { display: block; color: var(--muted); font-size: 0.72rem; } .tz-row .mut { font-size: 0.72rem; text-align: right; white-space: nowrap; }
+.tz-itens { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 8px 0; font-size: 0.82rem; } .tz-itens i { font-style: normal; color: var(--muted); }
+.tz-nav { display: flex; align-items: center; gap: 8px; margin: 4px 0 8px; } .tz-nav b { flex: 1; text-align: center; font-size: 0.92rem; } .tz-nav .nav { width: 34px; height: 34px; } .tz-nav .nav:disabled { opacity: 0.3; }
+.tz-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 6px; text-align: center; } .tz-cal .h { font-size: 0.62rem; color: var(--muted); } .tz-cal i { visibility: hidden; }
+.tz-cal button { aspect-ratio: 1; border: 0; border-radius: 9px; background: var(--card); color: var(--muted); font: 700 0.74rem var(--f-body); padding: 0; } .tz-cal button.sel { outline: 2px solid var(--ink); outline-offset: 1px; }
+.tz-cal button.ficha { background: #9BE3B8; color: #0B2219; } .tz-cal button.livre { background: #7CC4E8; color: #0B2219; } .tz-cal button.dois { background: #C9A6EE; color: #0B2219; }
+.tz-leg { display: flex; gap: 12px; font-size: 0.68rem; color: var(--muted); margin-bottom: 10px; } .tz-leg i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; vertical-align: -1px; } .tz-leg i.ficha { background: #9BE3B8; } .tz-leg i.livre { background: #7CC4E8; } .tz-leg i.dois { background: #C9A6EE; }
+.tz-nivs { display: flex; gap: 6px; flex-wrap: wrap; } .tz-nivs span { color: #0B2219; font-size: 0.74rem; font-weight: 700; padding: 4px 10px; border-radius: 10px; }
+.tz-big { font: 900 1.9rem var(--f-marca); } .tz-pesoh { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.tz-ins { margin: 4px 0; font-size: 0.84rem; line-height: 1.4; } .tz-ins b { color: var(--accent); }
+.lc-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; } .lc-top > div:first-child { flex: 1; min-width: 0; } .lc-top b { font: 900 1.15rem var(--f-marca); } .lc-top .x { border: 0; background: var(--card); width: 32px; height: 32px; border-radius: 50%; color: var(--ink); flex: none; }
+#formTr.sheet { grid-template-columns: minmax(0, 1fr); max-height: 94vh; } #formTr > * { min-width: 0; }
+.tz-faces { display: flex; justify-content: space-between; gap: 6px; } .tz-faces button { flex: 1; font-size: 1.4rem; padding: 6px 0; border-radius: 12px; border: 1px solid var(--line); background: var(--card); } .tz-faces button.on { background: var(--accent); border-color: var(--accent); }
+.tz-int { display: flex; gap: 4px; } .tz-int button { flex: 1; padding: 9px 0; border-radius: 10px; font-size: 0.66rem; font-weight: 700; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+.tz-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-items: end; } .tz-3 input { width: 100%; }
+.tz-fi { padding: 8px 0; border-bottom: 1px solid var(--line); } .tz-fi:last-child { border-bottom: 0; } .tz-fi .n { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; } .tz-fi .n button { border: 0; background: var(--bg); color: var(--ink); width: 28px; height: 28px; border-radius: 8px; margin-left: 4px; }
+.tz-clock b { font: 800 1.15rem var(--f-marca); color: var(--accent); } .tz-rest { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--accent); border-radius: 12px; padding: 8px 12px; } .tz-rest[hidden] { display: none; } .tz-rest b { font: 800 1.1rem var(--f-marca); color: var(--accent); margin-right: auto; } .tz-rest.fim { background: var(--accent); color: var(--accent-ink); } .tz-rest.fim b { color: var(--accent-ink); } .tz-rest button { border: 0; background: var(--bg); color: var(--ink); border-radius: 8px; padding: 5px 10px; font-weight: 700; }
+.tz-rec { background: var(--card); border-radius: 12px; padding: 9px 12px; font-size: 0.84rem; }
+.tz-ex { padding: 8px 12px; } .tz-ex.ok { opacity: 0.75; } .tz-exh { display: flex; justify-content: space-between; align-items: center; width: 100%; background: none; border: 0; color: var(--ink); font: inherit; padding: 4px 0; } .tz-exh small { color: var(--muted); }
+.tz-set { display: grid; grid-template-columns: 28px 1fr 64px 64px 34px; gap: 6px; align-items: center; padding: 4px 0; text-align: center; font-size: 0.84rem; } .tz-set.h { font-size: 0.64rem; color: var(--muted); text-transform: uppercase; } .tz-set input { width: 100%; text-align: center; padding: 7px 2px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; color: var(--ink); font-weight: 700; }
+.tz-set button { width: 30px; height: 30px; border-radius: 8px; border: 1.5px solid var(--line); background: none; font-weight: 800; color: var(--accent-ink); } .tz-set button.ok { background: var(--accent); border-color: var(--accent); }
+.btn.danger { color: var(--danger); border-color: var(--danger); }
+`;
+  document.head.appendChild(st);
+  const prepararAgBase = prepararAg;
+  prepararAg = function () {
+    prepararAgBase(); garantirTreino();
+    ABAS_PES.length = 0; ABAS_PES.push(['hoje', 'Hoje'], ['treinos', 'Treinos'], ['corpo', 'Corpo'], ['emocoes', 'Emoções'], ['meudia', 'Meu dia'], ['metas', 'Metas'], ['estudos', 'Estudos'], ['leitura', 'Leitura'], ['remedios', 'Remédios'], ['lancar', 'Lançar'], ['habitos', 'Hábitos'], ['diario', 'Diário'], ['academia', 'Academia']);
+    for (const k of ['lancar', 'habitos', 'diario', 'academia']) $('pa-' + k).hidden = true;
+    for (const k of ['treinos', 'corpo', 'emocoes']) $('pa-' + k).onclick = () => { pesAba = k; renderPessoal(); };
+    if (pes.sessao && !Array.isArray(pes.sessao.exs)) pes.sessao = null;
+  };
+  const NOVAS = ['treinos', 'corpo', 'emocoes'], REDIR = { lancar: 'hoje', diario: 'emocoes', academia: 'treinos', habitos: 'hoje' };
+  const renderPessoalBase = renderPessoal;
+  renderPessoal = function () {
+    garantirTreino(); if (REDIR[pesAba]) pesAba = REDIR[pesAba];
+    if (!NOVAS.includes(pesAba)) { renderPessoalBase(); return; }
+    ABAS_PES.forEach(([k]) => { $('pa-' + k).classList.toggle('on', pesAba === k); const el = $('p-' + k); if (el) el.hidden = pesAba !== k; });
+    $('chatPes').hidden = true; $('formPes').hidden = true; $('formDia').hidden = true;
+    const h = new Date(); $('subPes').textContent = MESES_LONGO[h.getMonth()] + ' de ' + h.getFullYear();
+    ({ treinos: renderTreinos, corpo: renderCorpo, emocoes: renderEmocoes })[pesAba]();
+    setTimeout(() => { const on = document.querySelector('#telaPessoal .abas .on'); if (on) on.scrollIntoView({ inline: 'nearest', block: 'nearest' }); }, 20);
+  };
+}
+
+
+// =====================================================================
 // 2.0 · FinZote: finanças com menu de cadastro (sem escrever)
 // Início · Extrato · + · Relatórios · Contas
 // =====================================================================
@@ -8689,6 +9231,7 @@ document.addEventListener('click', e => {
 }, true);
 
 // ----- Início -----
+let ganchoHomeFin = null; // fz2 acrescenta o botão Dividir conta
 function renderHomeFin() {
   atualizarBarra(); cacheSaldo = null; OCULTAR = !!config.esconderValores;
   const agora = Date.now(), hoje0 = inicioDoDia(agora).getTime(), t = totais(inicioMes(agora), fimMes(agora));
@@ -8706,7 +9249,7 @@ function renderHomeFin() {
   if (ult.length) h += '<div class="card"><div class="gh" style="margin:0"><span>Últimos lançamentos</span><button type="button" class="lnk" data-fz="extrato">extrato ›</button></div>' + ult.map(m => { const s = sinalMov(m); return '<button type="button" class="fz-li" data-em="' + esc(m.id) + '"><span class="e">' + iconeMov(m) + '</span><b>' + esc(m.titulo || 'Lançamento') + '</b><span class="v ' + (s < 0 ? 'gas' : s > 0 ? 'rec' : 'neu') + '">' + (s < 0 ? '− ' : s > 0 ? '+ ' : '') + fmtBRL(Math.abs(m.valor)) + '</span><small>' + esc(subMov(m)) + '</small></button>'; }).join('') + '</div>';
   const ab = (fin.receber || []).filter(r => !r.pago); if (ab.length) h += '<div class="card"><div class="gh" style="margin:0"><span>A receber</span><b class="rec">' + fmtBRL(ab.reduce((s, r) => s + r.valor, 0)) + '</b></div>' + ab.slice(0, 4).map(r => '<div class="fz-li"><span class="e">🧑</span><b>' + esc(r.nome) + '</b><span class="v rec">' + fmtBRL(r.valor) + '</span><small>' + esc(r.titulo || '') + ' · ' + fmtDM(r.t) + '</small></div>').join('') + '</div>';
   for (const mt of (fin.metas || []).slice(0, 2)) { const g = guardadoMeta(mt), p = mt.alvo ? Math.min(1, g / mt.alvo) : 0; h += '<button type="button" class="card fz-meta" data-fz="meta" data-id="' + esc(mt.id) + '"><div class="gh" style="margin:0"><span>Meta · ' + esc(mt.nome) + '</span><b class="inv">' + Math.round(p * 100) + '%</b></div><div class="bar2"><i style="width:' + (p * 100) + '%"></i></div><small>' + fmtBRL(g) + ' de ' + fmtBRL(mt.alvo) + (mt.prazo ? ' · até ' + fmtDM(mt.prazo) : '') + '</small></button>'; }
-  $('hoje').innerHTML = h;
+  $('hoje').innerHTML = h; if (ganchoHomeFin) ganchoHomeFin();
   const dB = config.ultimoBackup ? (Date.now() - config.ultimoBackup) / 86400000 : null;
   $('btnConfig').classList.toggle('alerta', (dB === null && fin.movs.length > 0) || dB >= 7);
 }
@@ -8997,6 +9540,231 @@ if (APP === 'fin') aplicarImport = async function (modo) {
   await Promise.all([salvarFin(), guardar('az-config', config)]); agendarAvisosFinDepois(); atualizarTudo();
   responderConfig('Importado ✓', '<p>Agora o FinZote tem <b>' + fin.movs.length + ' lançamentos</b>, ' + fin.contas.length + ' contas, ' + (fin.cartoes || []).length + ' cartões e ' + fin.agendadas.length + ' contas fixas. As categorias foram ajustadas para as do FinZote.</p>');
 };
+
+
+// =====================================================================
+// 2.1 · FinZote: calendário de gastos no Extrato e calculadora de divisão de conta
+// =====================================================================
+if (APP === 'fin') {
+  const st = document.createElement('style');
+  st.textContent = `
+.xc-grade { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 10px; text-align: center; }
+.xc-grade .h { font: 800 0.62rem var(--f-body); color: #6B7A72; padding-bottom: 2px; }
+.xc-grade button, .xc-grade i { aspect-ratio: 1; border-radius: 9px; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; font: 800 0.74rem var(--f-body); padding: 0; }
+.xc-grade i { visibility: hidden; } .xc-grade button small { font-size: 0.55rem; font-weight: 700; opacity: 0.9; min-height: 0.7em; }
+.xc-grade button.sel { outline: 2.5px solid #123524; outline-offset: 1px; } .xc-grade button.fut { opacity: 0.45; }
+.xc-leg { height: 12px; border-radius: 6px; margin: 12px 0 3px; background: linear-gradient(90deg, #DCEBFA, #8FC1EE, #F2D66B, #EE8B4F, #C0261C); }
+.xc-legt { display: flex; justify-content: space-between; font-size: 0.66rem; color: #6B7A72; }
+.xc-res { display: flex; gap: 8px; margin: 12px 0 4px; } .xc-res > div { flex: 1; background: #fff; border-radius: 14px; padding: 9px 10px; } .xc-res b { display: block; font: 900 1rem var(--f-marca); color: #10241B; } .xc-res small { font-size: 0.66rem; color: #6B7A72; }
+.xc-lim { margin: 6px 0 0; font-size: 0.74rem; color: #6B7A72; } .xc-lim button { border: 0; background: none; color: #123524; font-weight: 800; text-decoration: underline; padding: 0; }
+.sheet.lanc#formBar { grid-template-columns: minmax(0, 1fr); } #formBar > * { min-width: 0; }
+.bar-it input, .bar-add input { border: 1px solid #D9D3C2; border-radius: 10px; padding: 9px 10px; background: #FBF9F3; color: #10241B; font-size: 0.9rem; }
+.fz-bar-bt { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; margin: 10px 0 2px; padding: 12px 14px; border-radius: 16px; border: 1.5px solid #123524; background: #fff; color: #10241B; }
+.fz-bar-bt .em { font-size: 1.5rem; } .fz-bar-bt b { display: block; font-size: 0.95rem; } .fz-bar-bt small { color: #6B7A72; font-size: 0.72rem; } .fz-bar-bt i { margin-left: auto; font-style: normal; font-size: 1.4rem; color: #123524; }
+.bar-sec { font: 800 0.68rem var(--f-body); color: #6B7A72; text-transform: uppercase; letter-spacing: 0.07em; margin: 14px 0 6px; display: block; }
+.bar-it { background: #fff; border-radius: 14px; padding: 9px 10px; margin-bottom: 8px; } .bar-it .l1 { display: flex; gap: 8px; align-items: center; } .bar-it input { min-width: 0; }
+.bar-it .l1 input:first-child { flex: 1; } .bar-it .l1 input.v { width: 96px; text-align: right; } .bar-it .x { border: 0; background: #EFEADF; width: 30px; height: 30px; border-radius: 50%; color: #10241B; flex: none; }
+.bar-it.sem { outline: 2px solid #C8453B; } .bar-aviso { color: #C8453B; font-size: 0.72rem; margin-top: 4px; }
+.bar-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; } .bar-chips .chip { font-weight: 700; padding: 6px 11px; background: #EFEADF; } .bar-chips .chip.on { background: #123524; color: #F4F1E8; border-color: #123524; }
+.bar-pes { display: flex; flex-wrap: wrap; gap: 6px; } .bar-pes .chip { background: #fff; font-weight: 700; padding: 6px 6px 6px 12px; } .bar-pes .chip b { margin-left: 6px; opacity: 0.55; padding: 0 6px; }
+.bar-add { display: flex; gap: 8px; margin-top: 8px; } .bar-add input { flex: 1; min-width: 0; }
+.bar-pg { background: #fff; border-radius: 14px; padding: 10px 12px; margin-bottom: 8px; } .bar-pg .t { display: flex; justify-content: space-between; align-items: baseline; font-size: 1rem; } .bar-pg .t b:last-child { font: 900 1.05rem var(--f-marca); }
+.bar-pg .b { height: 7px; border-radius: 4px; background: #123524; margin: 6px 0 4px; } .bar-pg small { color: #6B7A72; font-size: 0.7rem; display: block; }
+.bar-tot { background: #123524; color: #F4F1E8; border-radius: 14px; padding: 11px 13px; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; } .bar-tot b { font: 900 1.25rem var(--f-marca); } .bar-tot small { display: block; color: #9CC4AE; font-size: 0.7rem; }
+.bar-bts { display: grid; gap: 8px; margin-top: 10px; } .bar-bts button { padding: 12px; border-radius: 12px; font-weight: 800; border: 1.5px solid #123524; background: none; color: #123524; } .bar-bts button.p { background: #123524; color: #F4F1E8; }
+`;
+  document.head.appendChild(st);
+
+  // ---------- calendário de gastos ----------
+  let extCal = false, extDia = null;
+  const limiteDia = () => config.limiteDia > 0 ? config.limiteDia : 150;
+  const PARADAS = [[0, [220, 235, 250]], [0.35, [143, 193, 238]], [0.6, [242, 214, 107]], [0.8, [238, 139, 79]], [1, [192, 38, 28]]];
+  function corGasto(v) {
+    const x = Math.min(v / limiteDia(), 1);
+    for (let i = 1; i < PARADAS.length; i++) if (x <= PARADAS[i][0]) { const a = PARADAS[i - 1], b = PARADAS[i], t = (x - a[0]) / (b[0] - a[0]); return a[1].map((q, j) => Math.round(q + (b[1][j] - q) * t)); }
+    return PARADAS[4][1];
+  }
+  const gastoMov = m => m.tipo === 'gasto' ? valorGasto(m) : m.tipo === 'credito' ? m.valor : 0;
+  function gastosPorDia(mes) {
+    const r = {}, fim = fimMes(mes);
+    for (const m of fin.movs) { if (m.t < mes || m.t > fim) continue; const g = gastoMov(m); if (!g) continue; const k = inicioDoDia(m.t).getDate(); r[k] = round2((r[k] || 0) + g); }
+    return r;
+  }
+  const curto = v => v >= 1000 ? (v / 1000).toFixed(v >= 10000 ? 0 : 1).replace('.', ',') + 'k' : String(Math.round(v));
+  function renderExtCal() {
+    if (!extMes) extMes = inicioMes(Date.now());
+    const box = $('finExtrato'), dm = new Date(extMes), atual = extMes === inicioMes(Date.now()), hoje = new Date();
+    const g = gastosPorDia(extMes), nDias = new Date(dm.getFullYear(), dm.getMonth() + 1, 0).getDate(), lim = limiteDia();
+    const ate = atual ? hoje.getDate() : nDias, total = Object.values(g).reduce((a, b) => a + b, 0), acima = Object.values(g).filter(v => v >= lim).length;
+    if (extDia && (extDia < 1 || extDia > nDias)) extDia = null;
+    if (!extDia) extDia = atual ? hoje.getDate() : null;
+    let h = '<div class="ext-nav"><button type="button" class="nav" data-xc="mes-" aria-label="Mês anterior">‹</button><b>' + maiuscula(MESES_LONGO[dm.getMonth()]) + (dm.getFullYear() !== hoje.getFullYear() ? ' de ' + dm.getFullYear() : '') + '</b><button type="button" class="nav" data-xc="mes+"' + (atual ? ' disabled' : '') + ' aria-label="Próximo mês">›</button>' +
+      '<button type="button" class="chip rev-bt on" data-xc="lista">☰ Lista</button></div>';
+    h += '<div class="xc-grade">' + ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map(d => '<div class="h">' + d + '</div>').join('') + '<i></i>'.repeat(dm.getDay());
+    for (let d = 1; d <= nDias; d++) {
+      const v = g[d] || 0, fut = atual && d > hoje.getDate(), c = corGasto(v), escuro = v / lim > 0.55;
+      h += '<button type="button" data-xc="dia" data-d="' + d + '" class="' + (d === extDia ? 'sel ' : '') + (fut ? 'fut' : '') + '" style="background:' + (v ? 'rgb(' + c + ')' : '#fff') + ';color:' + (escuro ? '#fff' : '#10241B') + '">' + d + '<small>' + (v ? curto(v) : '') + '</small></button>';
+    }
+    h += '</div><div class="xc-leg"></div><div class="xc-legt"><span>R$ 0</span><span>' + fmtBRL(lim / 2).replace(',00', '') + '</span><span>' + fmtBRL(lim).replace(',00', '') + ' ou mais</span></div>';
+    h += '<div class="xc-res"><div><b>' + fmtBRL(total / Math.max(ate, 1)) + '</b><small>média por dia</small></div><div><b>' + acima + '</b><small>' + (acima === 1 ? 'dia' : 'dias') + ' no limite ou acima</small></div></div>';
+    h += '<p class="xc-lim">Limite diário: <b>' + fmtBRL(lim).replace(',00', '') + '</b>' + (config.limiteDia > 0 ? '' : ' (padrão)') + ' · <button type="button" data-xc="limite">mudar</button></p>';
+    if (extDia) {
+      const ini = new Date(dm.getFullYear(), dm.getMonth(), extDia).getTime(), fimD = ini + 86400000 - 1;
+      const lista = fin.movs.filter(m => m.t >= ini && m.t <= fimD && m.tipo !== 'rotativo').sort((a, b) => b.t - a.t);
+      h += '<div class="ext-dia"><span>' + maiuscula(DIAS[new Date(ini).getDay()]) + ', ' + extDia + '</span>' + (g[extDia] ? '<b class="gas">− ' + fmtBRL(g[extDia]) + '</b>' : '') + '</div>';
+      h += lista.length ? lista.map(linhaExtHTML).join('') : '<div class="empty">Nada lançado nesse dia.</div>';
+    } else h += '<p class="dica">Toque num dia para ver os lançamentos dele.</p>';
+    box.innerHTML = h;
+  }
+  const renderExtratoBase = renderExtrato;
+  renderExtrato = function () {
+    if (!extMes) extMes = inicioMes(Date.now());
+    if (extCal && !extRevisar) { renderExtCal(); return; }
+    renderExtratoBase();
+    const nav = $('finExtrato').querySelector('.ext-nav .rev-bt');
+    if (nav && !extRevisar) { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.dataset.xc = 'cal'; b.textContent = '📅'; b.setAttribute('aria-label', 'Calendário de gastos'); b.style.marginLeft = 'auto'; nav.style.marginLeft = '0'; nav.parentNode.insertBefore(b, nav); }
+  };
+  function pedirLimiteDia() {
+    abrirForm('Limite diário de gastos', [{ k: 'v', rot: 'Valor do dia que fica vermelho forte (R$)', tipo: 'num', v: numBR(limiteDia()), ph: '150,00' }],
+      async d => { const v = valorBR(d.v); if (!(v > 0)) { toast('Informe um valor maior que zero'); return false; } config.limiteDia = v; await guardar('az-config', config); if (!$('telaFin')?.hidden || true) { if (extCal) renderExtrato(); } try { renderConfig(); } catch {} toast('Limite: ' + fmtBRL(v) + ' por dia'); });
+  }
+  CFG_ACOES['limite-dia'] = pedirLimiteDia;
+  $('finExtrato').addEventListener('click', e => {
+    const b = e.target.closest('[data-xc]'); if (!b) return; const a = b.dataset.xc;
+    if (a === 'cal') { extCal = true; extDia = null; renderExtrato(); $('finExtrato').scrollTop = 0; }
+    if (a === 'lista') { extCal = false; renderExtrato(); }
+    if (a === 'mes-') { extMes = inicioMes(extMes - 86400000); extDia = null; renderExtrato(); }
+    if (a === 'mes+') { const n = inicioMes(fimMes(extMes) + 86400000); if (n <= Date.now()) { extMes = n; extDia = null; renderExtrato(); } }
+    if (a === 'dia') { extDia = +b.dataset.d === extDia ? null : +b.dataset.d; renderExtrato(); }
+    if (a === 'limite') pedirLimiteDia();
+  });
+  const paginasFinBase2 = paginasFin;
+  paginasFin = function (P) {
+    const r = paginasFinBase2(P), it = r.main.itens, i = it.findIndex(x => x.p === 'orc');
+    it.splice(i < 0 ? it.length : i + 1, 0, { t: 'acao', a: 'limite-dia', titulo: '📅 Calendário de gastos', sub: 'limite diário das cores no Extrato', dir: fmtBRL(limiteDia()).replace(',00', '') });
+    return r;
+  };
+
+  // ---------- dividir conta ----------
+  let bar = null;
+  const cent = v => Math.round((Number(v) || 0) * 100);
+  const reais = c => c / 100;
+  const quemDe = it => it.todos ? bar.pessoas.map(p => p.id) : it.quem.filter(id => bar.pessoas.some(p => p.id === id));
+  function calcBar() {
+    const ps = bar.pessoas.map(p => ({ id: p.id, nome: p.nome, itens: [], cons: 0, serv: 0, couv: 0, total: 0 })), por = Object.fromEntries(ps.map(p => [p.id, p]));
+    const sem = []; let totalItens = 0;
+    bar.itens.forEach((it, n) => {
+      const c = cent(valorBR(it.valor || '0')), q = quemDe(it); if (!(c > 0)) return;
+      if (!q.length) { sem.push(it.nome || 'Item ' + (n + 1)); return; }
+      totalItens += c; const base = Math.floor(c / q.length); let rem = c - base * q.length;
+      q.forEach((id, j) => { const k = (j + n) % q.length; const extra = ((k) < rem) ? 1 : 0; por[id].cons += base + extra; por[id].itens.push({ nome: it.nome || 'Item', c: base + extra }); });
+    });
+    // serviço: total arredondado, repartido pelo consumo (maior resto)
+    const S = bar.pct > 0 ? Math.round(totalItens * bar.pct / 100) : 0, somaCons = ps.reduce((a, p) => a + p.cons, 0);
+    if (S > 0 && somaCons > 0) {
+      const partes = ps.map(p => { const x = S * p.cons / somaCons; return { p, f: Math.floor(x), r: x - Math.floor(x) }; });
+      let falta = S - partes.reduce((a, x) => a + x.f, 0);
+      partes.slice().sort((a, b) => b.r - a.r).forEach(x => { if (falta > 0 && x.p.cons > 0) { x.f++; falta--; } });
+      partes.forEach(x => { x.p.serv = x.f; });
+    }
+    const cv = cent(valorBR(bar.couvert || '0')); if (cv > 0) ps.forEach(p => { p.couv = cv; });
+    ps.forEach(p => { p.total = p.cons + p.serv + p.couv; });
+    return { ps, sem, totalItens, S, couvT: cv * ps.length, total: ps.reduce((a, p) => a + p.total, 0) };
+  }
+  const brlC = c => fmtBRL(reais(c));
+  function abrirBar() {
+    bar = { local: '', pessoas: [{ id: 'eu', nome: 'Eu' }], itens: [{ id: novoId(), nome: '', valor: '', todos: true, quem: [] }], pct: 10, couvert: '' };
+    renderBar(); $('barOv').hidden = false; $('formBar').scrollTop = 0;
+  }
+  function lerBarDom() {
+    if (!bar) return;
+    if ($('bLocal')) bar.local = $('bLocal').value.trim();
+    document.querySelectorAll('#formBar [data-bi]').forEach(inp => { const it = bar.itens.find(x => x.id === inp.dataset.id); if (it) it[inp.dataset.bi] = inp.value; });
+    if ($('bCouv')) bar.couvert = $('bCouv').value;
+  }
+  function renderBar() {
+    const B = bar, nomes = B.pessoas.map(p => p.nome.toLowerCase());
+    const amigos = (config.barAmigos || []).filter(n => !nomes.includes(n.toLowerCase()));
+    let h = '<div class="lc-top"><b>🍻 Dividir conta</b><button type="button" class="x" data-b="fechar" aria-label="Fechar">✕</button></div>';
+    h += '<div class="field"><label>Onde foi</label><input id="bLocal" type="text" value="' + esc(B.local) + '" placeholder="Ex.: Bar do Zé"></div>';
+    h += '<span class="bar-sec">Quem está na mesa</span><div class="bar-pes">' + B.pessoas.map(p => '<span class="chip">' + esc(p.nome) + (p.id === 'eu' ? '' : '<b data-b="delp" data-id="' + p.id + '" role="button" aria-label="Tirar ' + esc(p.nome) + '">✕</b>') + '</span>').join('') + '</div>';
+    h += '<div class="bar-add"><input id="bNome" type="text" placeholder="Nome da pessoa" autocomplete="off"><button type="button" class="chip on" data-b="addp" style="font-weight:800;padding:8px 14px">+ Adicionar</button></div>';
+    if (amigos.length) h += '<div class="bar-chips">' + amigos.slice(0, 8).map(n => '<button type="button" class="chip" data-b="amigo" data-n="' + esc(n) + '">+ ' + esc(n) + '</button>').join('') + '</div>';
+    h += '<span class="bar-sec">O que foi pedido · toque em quem consumiu</span>';
+    B.itens.forEach(it => {
+      const q = quemDe(it), vazio = !q.length && cent(valorBR(it.valor || '0')) > 0;
+      h += '<div class="bar-it' + (vazio ? ' sem' : '') + '"><div class="l1"><input type="text" data-bi="nome" data-id="' + it.id + '" value="' + esc(it.nome) + '" placeholder="Item (ex.: cerveja 4x)"><input class="v" type="text" inputmode="decimal" data-bi="valor" data-id="' + it.id + '" value="' + esc(it.valor) + '" placeholder="0,00"><button type="button" class="x" data-b="deli" data-id="' + it.id + '" aria-label="Remover item">✕</button></div>' +
+        '<div class="bar-chips"><button type="button" class="chip' + (it.todos ? ' on' : '') + '" data-b="todos" data-id="' + it.id + '">Todos</button>' + B.pessoas.map(p => '<button type="button" class="chip' + (q.includes(p.id) ? ' on' : '') + '" data-b="q" data-id="' + it.id + '" data-p="' + p.id + '">' + esc(p.nome) + '</button>').join('') + '</div>' + (vazio ? '<div class="bar-aviso">Marque pelo menos uma pessoa, senão este item fica de fora.</div>' : '') + '</div>';
+    });
+    h += '<button type="button" class="chip on" data-b="additem" style="font-weight:800;padding:9px 16px">+ Adicionar item</button>';
+    h += '<span class="bar-sec">Serviço e couvert</span><div class="bar-chips" style="margin-top:0">' + [[0, 'Sem serviço'], [5, '5%'], [10, '10%'], [12, '12%'], [15, '15%']].map(([v, n]) => '<button type="button" class="chip' + (B.pct === v ? ' on' : '') + '" data-b="pct" data-v="' + v + '">' + n + '</button>').join('') + '</div>';
+    h += '<div class="field" style="margin-top:8px"><label>Couvert por pessoa (R$)</label><input id="bCouv" type="text" inputmode="decimal" value="' + esc(B.couvert) + '" placeholder="0,00"></div>';
+    h += '<span class="bar-sec">Quanto cada um paga</span><div id="barRes"></div>';
+    $('formBar').innerHTML = h; renderBarRes();
+  }
+  function renderBarRes() {
+    const r = calcBar(), box = $('barRes'); if (!box) return;
+    if (!r.totalItens) { box.innerHTML = '<div class="empty">Coloque o valor dos itens e marque quem consumiu. A conta aparece aqui.</div>'; return; }
+    const max = Math.max(...r.ps.map(p => p.total), 1);
+    let h = '<div class="bar-tot"><div><small>Total da conta</small><b>' + brlC(r.total) + '</b></div><small style="text-align:right">itens ' + brlC(r.totalItens) + (r.S ? '<br>serviço ' + brlC(r.S) : '') + (r.couvT ? '<br>couvert ' + brlC(r.couvT) : '') + '</small></div>';
+    h += r.ps.map(p => '<div class="bar-pg"><div class="t"><b>' + esc(p.nome) + '</b><b>' + brlC(p.total) + '</b></div><div class="b" style="width:' + Math.max(4, Math.round(p.total / max * 100)) + '%"></div><small>' + (p.itens.map(i => esc(i.nome) + ' ' + (i.c / 100).toFixed(2).replace('.', ',')).join(' · ') || 'nada consumido') + (p.serv ? ' · serviço ' + (p.serv / 100).toFixed(2).replace('.', ',') : '') + (p.couv ? ' · couvert ' + (p.couv / 100).toFixed(2).replace('.', ',') : '') + '</small></div>').join('');
+    if (r.sem.length) h += '<div class="bar-aviso">Fora da conta (sem ninguém marcado): ' + esc(r.sem.join(', ')) + '</div>';
+    h += '<div class="bar-bts"><button type="button" class="p" data-b="lancar">Lançar minha parte no FinZote</button><button type="button" data-b="copiar">Copiar resumo para o grupo</button></div>';
+    box.innerHTML = h;
+  }
+  function resumoBar() {
+    const r = calcBar(), nome = bar.local || 'Conta';
+    return '🍻 ' + nome + ' · total ' + brlC(r.total) + (bar.pct ? ' (com serviço de ' + bar.pct + '%)' : '') + '\n' + r.ps.map(p => '• ' + p.nome + ': ' + brlC(p.total)).join('\n');
+  }
+  async function lembrarAmigo(nome) {
+    const l = (config.barAmigos || []).filter(n => n.toLowerCase() !== nome.toLowerCase()); l.unshift(nome); config.barAmigos = l.slice(0, 12); try { await guardar('az-config', config); } catch {}
+  }
+  function addPessoa(nome) {
+    nome = (nome || '').trim(); if (!nome) return;
+    if (bar.pessoas.some(p => p.nome.toLowerCase() === nome.toLowerCase())) { toast(nome + ' já está na mesa'); return; }
+    lerBarDom(); bar.pessoas.push({ id: novoId(), nome }); lembrarAmigo(nome); renderBar();
+    setTimeout(() => $('bNome')?.focus(), 30);
+  }
+  $('formBar').addEventListener('submit', e => e.preventDefault());
+  $('formBar').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); if (e.target.id === 'bNome') addPessoa(e.target.value); } });
+  $('formBar').addEventListener('input', e => {
+    if (!e.target.matches('[data-bi],#bCouv,#bLocal')) return; lerBarDom(); renderBarRes();
+    if (e.target.dataset.bi === 'valor') { const it = bar.itens.find(x => x.id === e.target.dataset.id); e.target.closest('.bar-it')?.classList.toggle('sem', !!it && !quemDe(it).length && cent(valorBR(it.valor || '0')) > 0); }
+  });
+  $('formBar').addEventListener('click', async e => {
+    const b = e.target.closest('[data-b]'); if (!b) return; const a = b.dataset.b, it = bar.itens.find(x => x.id === b.dataset.id);
+    if (a === 'fechar') { $('barOv').hidden = true; return; }
+    lerBarDom();
+    if (a === 'addp') { addPessoa($('bNome').value); return; }
+    if (a === 'amigo') { addPessoa(b.dataset.n); return; }
+    if (a === 'delp') { bar.pessoas = bar.pessoas.filter(p => p.id !== b.dataset.id); bar.itens.forEach(x => { x.quem = x.quem.filter(id => id !== b.dataset.id); }); renderBar(); return; }
+    if (a === 'additem') { bar.itens.push({ id: novoId(), nome: '', valor: '', todos: true, quem: [] }); renderBar(); setTimeout(() => { const l = document.querySelectorAll('#formBar [data-bi="nome"]'); l[l.length - 1]?.focus(); }, 30); return; }
+    if (a === 'deli') { bar.itens = bar.itens.filter(x => x.id !== b.dataset.id); if (!bar.itens.length) bar.itens.push({ id: novoId(), nome: '', valor: '', todos: true, quem: [] }); renderBar(); return; }
+    if (a === 'todos' && it) { if (it.todos) { it.todos = false; it.quem = []; } else it.todos = true; renderBar(); return; }
+    if (a === 'q' && it) {
+      const p = b.dataset.p, q = quemDe(it), novo = q.includes(p) ? q.filter(x => x !== p) : [...q, p];
+      it.quem = novo; it.todos = novo.length === bar.pessoas.length; renderBar(); return;
+    }
+    if (a === 'pct') { bar.pct = +b.dataset.v; renderBar(); return; }
+    if (a === 'copiar') { const txt = resumoBar(); try { if (navigator.share) { await navigator.share({ text: txt }); } else { await navigator.clipboard.writeText(txt); toast('Resumo copiado'); } } catch { try { await navigator.clipboard.writeText(txt); toast('Resumo copiado'); } catch { toast('Não deu para copiar'); } } return; }
+    if (a === 'lancar') {
+      const r = calcBar(), eu = r.ps.find(p => p.id === 'eu'); if (!eu || !eu.total) { toast('Sua parte está zerada'); return; }
+      const nome = bar.local || 'Conta do bar'; $('barOv').hidden = true;
+      abrirLanc({ tipo: 'gasto', valor: reais(eu.total), desc: nome });
+      if (lanc && !lanc.cat) { lanc.cat = 'lazer'; lanc.sub = 'Bares'; renderLanc(); }
+    }
+  });
+  // botão na tela inicial
+  ganchoHomeFin = function () {
+    const hero = $('hoje').querySelector('.fz-hero'); if (!hero) return;
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'fz-bar-bt'; b.dataset.fz2 = 'bar';
+    b.innerHTML = '<span class="em">🍻</span><span><b>Dividir conta</b><small>bar, restaurante: cada um paga o que consumiu</small></span><i>›</i>';
+    hero.after(b);
+  };
+  $('hoje').addEventListener('click', e => { if (e.target.closest('[data-fz2="bar"]')) abrirBar(); });
+  TIPOS_CAD.push(['bar', '🍻', 'Dividir conta', 'bar, restaurante']);
+  $('cadOv').addEventListener('click', e => { const b = e.target.closest('[data-cad="bar"]'); if (b) abrirBar(); });
+}
 
 // ===== Início =====
 (async () => {

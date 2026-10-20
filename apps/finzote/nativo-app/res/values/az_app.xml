@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="az_w_nome">FINZOTE.</string>
+    <string name="az_w_botao_txt">＋ Lançar</string>
+    <string name="az_w_abra">abra o FinZote</string>
+    <string name="az_w_link_raiz">finzote://inicio</string>
+    <string name="az_w_link_botao">finzote://cadastro</string>
+    <string name="az_w_link_b3">finzote://extrato</string>
+    <string name="az_w_desc">Pode gastar hoje, próxima conta e saldo</string>
+    <string name="az_sc_gasto">Gasto</string>
+    <string name="az_sc_gasto_longo">Lançar um gasto</string>
+    <string name="az_sc_receita">Receita</string>
+    <string name="az_sc_receita_longo">Lançar uma receita</string>
+    <string name="az_sc_cartao">Cartão</string>
+    <string name="az_sc_cartao_longo">Compra no cartão de crédito</string>
+    <string name="az_sc_extrato">Extrato</string>
+    <string name="az_sc_extrato_longo">Ver o extrato</string>
+    <color name="az_w_fundo">#123524</color>
+    <color name="az_w_borda">#1E4D3A</color>
+    <color name="az_w_destaque">#9BE3B8</color>
+    <color name="az_w_pill_txt">#123524</color>
+    <color name="az_w_texto">#F4F1E8</color>
+    <color name="az_w_mudo">#9CC4AE</color>
+</resources>
